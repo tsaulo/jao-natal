@@ -7,8 +7,8 @@
 }
 
 .videomask{
-    max-width: 300px;
-    max-height: 200px;
+    max-width: 600px;
+    max-height: 400px;
     overflow: hidden;
     position: relative;
     display: flex;
@@ -18,8 +18,8 @@
 }
 
 video{
-    max-width: 300px;
-    max-height: 200px;
+    max-width: 600px;
+    max-height: 400px;
     overflow: hidden;
     position: relative;
     display: flex;
