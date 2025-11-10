@@ -166,7 +166,7 @@ function App() {
             <Final dadoNome={formData.nome} dadoComodo={formData.comodo} dadoMusica={formData.musica} dadoPijama={formData.pijama} dadoEstado={formData.cidade}>
             <button 
                   className={`botao botao${step} no-capture`} 
-                  onClick={() => setTimeout(gerarImagem, 500)}
+                  onClick={() => setTimeout(gerarImagem, 2000)}
               >
                   Salvar
               </button>
@@ -178,10 +178,11 @@ function App() {
         
       </div>
       <footer className={`footer footer${step}`}>
-        <p>site feito por tsaulo (@guiltysanto)</p>
         <div className="no-capture">
           <AudioPlayer></AudioPlayer>
         </div>
+        <p>site feito por tsaulo (@guiltysanto)</p>
+        
         
         </footer>
     </div>
