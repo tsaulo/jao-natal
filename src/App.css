@@ -1,38 +1,270 @@
-.App {
+.header{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.conteudo{
+  padding-top: 17vh;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.footer{
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: flex-end;
+  z-index: 50;
+  transition: all ease-in 500ms;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+#captura{
+  width: 100%;
+  position: relative;
+}
+
+.footer1, .footer7{
+  background-color: #BFBFBF;
+}
+
+.footer2, .footer6{
+  background-color: #8D1023;
+}
+
+.footer3{
+  background-color: #2B7D2D;
+}
+
+.footer4{
+  background-color: #CB932B;
+}
+
+.footer5{
+  background-color: #2b3e7d;
+}
+
+.footer p{
+  padding: 0;
+  margin: 0;
+  font-size: 1.5vh;
+}
+
+.jao1{
+  max-width: 30vw;
+  position: relative;
+  z-index: 2;
+  transform: translateY(-3vh);
+}
+
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 2s ease-in;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 2s ease-in;
+}
+
+.fade-out {
+  opacity: 0;
+  transition: opacity 2s ease-in;
+}
+
+
+.tela {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  transition: all ease-in 500ms;
+
+}
+
+.tela1, .tela7 { background-color: #BFBFBF; filter: brightness(0.8); }
+.tela2, .tela6 { background-color: #8D1023; }
+.tela3 { background-color: #2B7D2D; }
+.tela4 { background-color: #CB932B; }
+.tela5 { background-color: #2b3e7d; }
+
+
+.container, .container2, .container7{
+  max-width: 415px;
+  width: 100%;
+  text-align: center;
+  overflow-x: hidden;
+  transition: all ease-in 500ms;
+}
+
+.container1{
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-around;
+  
+}
+
+.container3{
+  background: repeating-linear-gradient(
+  150deg,
+  #ddd6c0,
+  #ddd6c0 20px,
+  #2B7D2D 20px,
+  #2B7D2D 40px
+);
+}
+
+.container4{
+  background: repeating-linear-gradient(
+  20deg,
+  #ddd6c0,
+  #ddd6c0 20px,
+  #CB932B 20px,
+  #CB932B 40px
+);
+}
+
+.container5{
+  background: repeating-linear-gradient(
+  130deg,
+  #ddd6c0,
+  #ddd6c0 20px,
+  #2b3e7d 20px,
+  #2b3e7d 40px
+);
+}
+
+.container6{
+  background: repeating-linear-gradient(
+  40deg,
+  #ddd6c0,
+  #ddd6c0 20px,
+  #8D1023 20px,
+  #8D1023 40px
+);
+}
+
+/* base de todos os botões */
+.botao {
+  background: none;
+  padding: 2vh 6vw;
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
+  width: 10vw;
+  font-size: 2.5vh;
+  font-weight: 400;
+  font-family: "Playfair Display";
+  cursor: pointer;
+  transition: all ease-in 200ms;
+}
+
+.botoes{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+/* estilos individuais */
+.botao1, .botao6 {
+  border: 2px solid #8D1023;
+  color: #8D1023;
+}
+.botao1:hover, .botao6:hover {
+  background-color: #8D1023;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.botao2, .botao7 {
+  border: 2px solid #ffffff;
+  color: #ffffff;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.botao2:disabled{
+  opacity: 0;
+  transition: opacity ease-in 0.5s;
+  pointer-events: none;
+}
+
+.botao2:hover{
+  background-color: white;
+  color: #8D1023;
+}
+
+.botao7:hover{
+  background-color: white;
+  color: #8D1023;
+}
+
+.botao3, .botao4, .botao5, .botao6, .botao7{
+  padding: 1vh 0.5vw;
+  font-size: 2vh;
+  width: 7vw;
+}
+
+.botao7{
+    margin-top: 5%;
+    margin-right: 5%;
+}
+
+.botao3{
+  border: 2px solid #2B7D2D;
+  color: #2B7D2D;
+}
+
+.botao3:hover{
+  background-color: #2B7D2D;
+  color: white;
+}
+
+.botao4 {
+  border: 2px solid #CB932B;
+  color: #CB932B;
+}
+
+.botao4:hover{
+  background-color: #CB932B;
+  color: white;
+}
+
+.botao5 {
+  border: 2px solid #2b3e7d;
+  color: #2b3e7d;
+}
+
+.botao5:hover{
+  background-color: #2b3e7d;
+  color: white;
+}
+
+
+@media screen and (max-width: 1024px){
+  .jao1{
+    max-width: 120vw;
+    transform: translateY(-6vh);
+}
+
+
+
+.botao{
+  width: 30vw;
+  padding: 3.5vh 25vw;
+  height: 5vh;
+}
+
+.botao3, .botao4, .botao5, .botao6, .botao7{
+  padding: 1.5vh 3vw;
+  font-size: 2vh;
+}
 }

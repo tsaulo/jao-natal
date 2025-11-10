@@ -1,0 +1,53 @@
+.musica{
+    position: fixed;
+    bottom: 6px;
+    right: 6px;
+    z-index: 999;
+    cursor: pointer;
+}
+
+.botaomusica{
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    background: #ffffff1e;
+    backdrop-filter: blur(6px);
+    border: 1px solid #ffffff47;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.3 ease, transform 0.3 ease;
+}
+
+.botaomusica.sim{
+    background: #ffffff47;
+    transform: scale(1.05);
+}
+
+.barra{
+    width: 4px;
+    height: 14px;
+    background: white;
+    margin: 0 1.2px;
+    opacity: 0.8;
+    transform-origin: bottom;
+    animation: none;
+}
+
+.botaomusica.sim .barra1{
+    animation: som 1s infinite ease-in-out;
+}
+
+.botaomusica.sim .barra2{
+    animation: som 1s infinite ease-in-out 0.5s;
+}
+
+.botaomusica.sim .barra3{
+    animation: som 1s infinite ease-in-out 0.25s;
+}
+
+@keyframes som{
+    0%{height: 3px;}
+    50%{height: 14px;}
+    100%{height: 3px;}
+}

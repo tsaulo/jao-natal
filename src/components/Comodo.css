@@ -1,0 +1,58 @@
+.dentro{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.campo{
+    display: flex;
+        flex-direction: column;
+        justify-content: center;
+    width: 20vw;
+    height: 70vh;
+    background-color: #ddd6c0;
+    margin-top: 10%;
+    text-align: left;
+    color: #2B7D2D;
+    padding: 0vh 1.2vw 1vh 1.2vw;
+}
+
+h2{
+    margin-top: 0;
+    font-weight: 700;
+    font-size: 2.8vh;
+}
+
+p{
+    margin: 1vh 0;
+    font-size: 2vh;
+}
+
+select{
+    padding-top: 2%;
+    background: none;
+    border: 0;
+    font-family: 'Playfair Display';
+    border-bottom: 2px solid #2B7D2D;
+    font-size: 2.5vh;
+    width: 100%;
+    color: #2B7D2D;
+    font-style: italic;
+    margin-bottom: 4vh;
+}
+
+option{
+    background-color: #ddd6c0;
+}
+
+
+@media screen and (max-width: 1024px){
+    .campo{
+    width: 76vw;
+    height: 68vh;
+    margin-top: 8vh;
+    padding: 0 5vw ;
+}
+}

@@ -1,0 +1,37 @@
+.textao{
+    text-align: left;
+    border-top: 2px solid white;
+}
+
+.escreva{
+    background: none;
+    border: 0;
+    font-family: 'Playfair Display';
+    border-bottom: 2px solid white;
+    font-size: 3vh;
+    width: 80%;
+    color: rgba(255, 255, 255, 0.9);
+    font-style: italic;
+    margin-bottom: 10vh;
+}
+
+.escreva::placeholder{
+    color: rgba(255, 255, 255, 0.7);
+    font-style: italic;
+}
+
+h1{
+    font-weight: 500;
+    padding-top: 2vh;
+}
+
+@media screen and (max-width: 1024px){
+    .textao{
+    padding: 0 5vw;
+    margin-top: 4vh;
+}
+
+    .escreva{
+        margin-bottom: 5.5vh;
+    }
+}

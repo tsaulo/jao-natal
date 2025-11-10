@@ -1,0 +1,42 @@
+.titulo{
+    max-width: 16vw;
+    padding-top: 3vh;
+    padding-bottom: 1vh;
+}
+
+.tcontainer{
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    transition: all ease-in 500ms;
+}
+
+.tcontainer1, .tcontainer7{
+    background-color: #bfbfbf;
+}
+
+
+.tcontainer2, .tcontainer6{
+    background-color: #8D1023;
+}
+
+.tcontainer3{
+    background-color: #2b7d2d;
+}
+
+.tcontainer4{
+    background-color: #CB932B;
+}
+
+.tcontainer5{
+    background-color: #2b3e7d;
+}
+
+
+
+@media screen and (max-width: 1024px){
+    .titulo{
+    max-width: 33vh;
+    padding-bottom: 5vh;
+}
+}
