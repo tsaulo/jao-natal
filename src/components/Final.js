@@ -56,7 +56,7 @@ const Final = ( { dadoNome, dadoComodo, dadoMusica, dadoPijama, dadoEstado, chil
     
 
     return(
-         <div className="dentro" id="captura">
+         <div className="dentrofinal">
             <div className="campofim">
             <div>
                 <h2>Para <i>{dadoNome}</i>,</h2>

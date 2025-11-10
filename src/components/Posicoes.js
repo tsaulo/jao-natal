@@ -38,7 +38,7 @@ const Posicoes = ({updateCampo, children}) => {
     };
 
     return(
-        <div className="dentro">
+        <div className="dentropos">
             <div className="campopos">
             <h2>...e danças marcantes!</h2>
             <p>Acho que todos lembram da primeira vez que a performance de Religião ficou... <i>especial</i> no segundo refrão.</p>

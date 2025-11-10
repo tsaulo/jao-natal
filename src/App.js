@@ -54,7 +54,7 @@ function App() {
   const elemento = document.getElementById("captura");
   if (!elemento) return;
 
-  const dataURL = await domtoimage.toPng(elemento, { quality: 1, scale: 3, filter: (node) => {
+  const dataURL = await domtoimage.toPng(elemento, { quality: 1, scale: 4, filter: (node) => {
     if (node.classList && node.classList.contains("no-capture")) return false;
     return true;
   } });
