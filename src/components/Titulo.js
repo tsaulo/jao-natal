@@ -4,9 +4,8 @@ import './Titulo.css'
 const Titulo = ({step}) => {
     return(
         <div className={`tcontainer tcontainer${step}`} style={{zIndex: 10}}>
-            
-            <img className="titulo" src="umano/bases/bfundos/btitulo.png"/><br/>
-            <p>site feito por tsaulo (@guiltysanto)</p>
+            <p>site feito por tsaulo (@guiltysanto)</p> <br/>
+            <img className="titulo" src="umano/bases/bfundos/btitulo.png"/>
         </div>  
     )
 }

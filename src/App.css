@@ -4,6 +4,7 @@
   width: 100%;
   z-index: 1;
   text-align: center;
+  color: white;
 }
 
 .conteudo{
@@ -16,27 +17,7 @@
   position: relative;
 }
 
-.footer1, .footer7{
-  background-color: #BFBFBF;
-}
-
-.footer2, .footer6{
-  background-color: #8D1023;
-}
-
-.footer3{
-  background-color: #2B7D2D;
-}
-
-.footer4{
-  background-color: #CB932B;
-}
-
-.footer5{
-  background-color: #2b3e7d;
-}
-
-.footer p{
+.header p{
   padding: 0;
   margin: 0;
   font-size: 1.5vh;
