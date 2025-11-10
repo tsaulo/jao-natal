@@ -105,6 +105,9 @@ function App() {
   return (
     <div id="captura" className={`tela tela${step}`}>
       <header className="header"><Titulo step={step}/><br></br></header>
+      <div className="no-capture">
+          <AudioPlayer></AudioPlayer>
+        </div>
         <div className={`container container${step} ${fade}`}>  
         {step === 1 && (
           <main className="conteudo">
@@ -178,12 +181,7 @@ function App() {
         
       </div>
       <footer className={`footer footer${step}`}>
-        <div className="no-capture">
-          <AudioPlayer></AudioPlayer>
-        </div>
         <p>site feito por tsaulo (@guiltysanto)</p>
-        
-        
         </footer>
     </div>
   );
