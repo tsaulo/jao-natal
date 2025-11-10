@@ -12,7 +12,6 @@ import Posicoes from './components/Posicoes';
 import Final from './components/Final';
 
 function App() {
-  const base = process.env.PUBLIC_URL;
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     nome: "",
@@ -111,7 +110,7 @@ function App() {
           <main className="conteudo">
             <Neve></Neve>
             <img className={`jao1 ${desaparecendo ? "fade-out" : ""}`}
-  src={`${base}/umano/bases/bfundos/começo2.png`}/>
+  src="umano/bases/bfundos/começo2.png"/>
             <br></br>
             <div className="botoes" style={{justifyContent:"center"}}>
               <button className={`botao botao${step}`} onClick={() => {

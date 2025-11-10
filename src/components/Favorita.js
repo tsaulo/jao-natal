@@ -2,33 +2,30 @@ import "./Favorita.css";
 import { useState } from "react";
 
 const Favorita = ({updateCampo, children}) => {
-
-    const base = process.env.PUBLIC_URL;
-
     const imagens = {
-        acontece: `${base}/umano/bases/bmusicas/bacontece.png`,
-        alinhamento: `${base}/umano/bases/bmusicas/balinhamento.png`,
-        clarao: `${base}/umano/bases/bmusicas/bclarao.png`,
-        covers: `${base}/umano/bases/bmusicas/bcovers.png`,
-        doce: `${base}/umano/bases/bmusicas/bdoce.png`,
-        enquanto: `${base}/umano/bases/bmusicas/benquanto.png`,
-        essa: `${base}/umano/bases/bmusicas/bessa.png`,
-        euquero: `${base}/umano/bases/bmusicas/beuquero.png`,
-        idiota: `${base}/umano/bases/bmusicas/bidiota.png`,
-        julho: `${base}/umano/bases/bmusicas/bjulho.png`,
-        labia: `${base}/umano/bases/bmusicas/blabia.png`,
-        lambe: `${base}/umano/bases/bmusicas/blambe.png`,
-        lobos: `${base}/umano/bases/bmusicas/blobos.png`,
-        locadora: `${base}/umano/bases/bmusicas/blocadora.png`,
-        mem: `${base}/umano/bases/bmusicas/bmem.png`,
-        modo: `${base}/umano/bases/bmusicas/bmodo.png`,
-        olhos: `${base}/umano/bases/bmusicas/bolhos.png`,
-        radio: `${base}/umano/bases/bmusicas/bradio.png`,
-        religiao: `${base}/umano/bases/bmusicas/breligiao.png`,
-        santo: `${base}/umano/bases/bmusicas/bsanto.png`,
-        tempos: `${base}/umano/bases/bmusicas/btempos.png`,
-        triste: `${base}/umano/bases/bmusicas/btriste.png`,
-        ultima: `${base}/umano/bases/bmusicas/bultima.png`,
+        acontece: "umano/bases/bmusicas/bacontece.png",
+        alinhamento: "umano/bases/bmusicas/balinhamento.png",
+        clarao: "umano/bases/bmusicas/bclarao.png",
+        covers: "umano/bases/bmusicas/bcovers.png",
+        doce: "umano/bases/bmusicas/bdoce.png",
+        enquanto: "umano/bases/bmusicas/benquanto.png",
+        essa: "umano/bases/bmusicas/bessa.png",
+        euquero: "umano/bases/bmusicas/beuquero.png",
+        idiota: "umano/bases/bmusicas/bidiota.png",
+        julho: "umano/bases/bmusicas/bjulho.png",
+        labia: "umano/bases/bmusicas/blabia.png",
+        lambe: "umano/bases/bmusicas/blambe.png",
+        lobos: "umano/bases/bmusicas/blobos.png",
+        locadora: "umano/bases/bmusicas/blocadora.png",
+        mem: "umano/bases/bmusicas/bmem.png",
+        modo: "umano/bases/bmusicas/bmodo.png",
+        olhos: "umano/bases/bmusicas/bolhos.png",
+        radio: "umano/bases/bmusicas/bradio.png",
+        religiao: "umano/bases/bmusicas/breligiao.png",
+        santo: "umano/bases/bmusicas/bsanto.png",
+        tempos: "umano/bases/bmusicas/btempos.png",
+        triste: "umano/bases/bmusicas/btriste.png",
+        ultima: "umano/bases/bmusicas/bultima.png",
     };
 
     const [imagem, setImagem] = useState(imagens.lobos);

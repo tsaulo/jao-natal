@@ -2,12 +2,10 @@ import "./Figurinos.css";
 import { useState } from "react";
 
 const Figurinos = ({updateCampo, children}) => {
-    const base = process.env.PUBLIC_URL;
-    
     const imagens = {
-        azul: `${base}/umano/bases/bpijamas/brazul.png`,
-        rosa: `${base}/umano/bases/bpijamas/brosa.png`,
-        verde: `${base}/umano/bases/bpijamas/bverde.png`,
+        azul: "umano/bases/bpijamas/brazul.png",
+        rosa: "umano/bases/bpijamas/brosa.png",
+        verde: "umano/bases/bpijamas/bverde.png",
     };
 
     const [imagem, setImagem] = useState(imagens.azul);

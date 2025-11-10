@@ -2,19 +2,17 @@ import "./Posicoes.css";
 import { useState, useRef } from "react";
 
 const Posicoes = ({updateCampo, children}) => {
-    const base = process.env.PUBLIC_URL;
-
     const videos = {
-        bh: `${base}/umano/bases/bestados/videos/bbh.mp4`,
-        bsb: `${base}/umano/bases/bestados/videos/bbsb.mp4`,
-        curitiba: `${base}/umano/bases/bestados/videos/bcuritiba.mp4`,
-        maceio: `${base}/umano/bases/bestados/videos/bmaceio.mp4`,
-        poa: `${base}/umano/bases/bestados/videos/bpoa.mp4`,
-        recife: `${base}/umano/bases/bestados/videos/brecife.mp4`,
-        ribeirao: `${base}/umano/bases/bestados/videos/bribeirao.mp4`,
-        rio: `${base}/umano/bases/bestados/videos/brio.mp4`,
-        sp: `${base}/umano/bases/bestados/videos/bsp.mp4`,
-        vitoria: `${base}/umano/bases/bestados/videos/bvitoria.mp4`,
+        bh: "umano/bases/bestados/videos/bbh.mp4",
+        bsb: "umano/bases/bestados/videos/bbsb.mp4",
+        curitiba: "umano/bases/bestados/videos/bcuritiba.mp4",
+        maceio: "umano/bases/bestados/videos/bmaceio.mp4",
+        poa: "umano/bases/bestados/videos/bpoa.mp4",
+        recife: "umano/bases/bestados/videos/brecife.mp4",
+        ribeirao: "umano/bases/bestados/videos/bribeirao.mp4",
+        rio: "umano/bases/bestados/videos/brio.mp4",
+        sp: "umano/bases/bestados/videos/bsp.mp4",
+        vitoria: "umano/bases/bestados/videos/bvitoria.mp4",
     };
 
     const [video, setVideo] = useState(videos.rio);
