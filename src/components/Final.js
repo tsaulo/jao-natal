@@ -1,56 +1,59 @@
 import "./Final.css";
 
 const Final = ( { dadoNome, dadoComodo, dadoMusica, dadoPijama, dadoEstado, children } ) => {
+
+     const base = process.env.PUBLIC_URL;
+
     const polaroidsComodo = {
-        banheiro: "/umano/locais/banheiro.png",
-        entrada: "/umano/locais/entrada.png",
-        quarto: "/umano/locais/quarto.png",
-        sala: "/umano/locais/sala.png",
+        banheiro: `${base}/umano/locais/banheiro.png`,
+        entrada: `${base}/umano/locais/entrada.png`,
+        quarto: `${base}/umano/locais/quarto.png`,
+        sala: `${base}/umano/locais/sala.png`,
     }
 
     const polaroidsMusica = {
-        acontece: "/umano/musicas/acontece.png",
-        alinhamento: "/umano/musicas/alinhamento.png",
-        clarao: "/umano/musicas/clarao.png",
-        covers: "/umano/musicas/covers.png",
-        doce: "/umano/musicas/doce.png",
-        enquanto: "/umano/musicas/enquanto.png",
-        essa: "/umano/musicas/essa.png",
-        euquero: "/umano/musicas/quero.png",
-        idiota: "/umano/musicas/idiota.png",
-        julho: "/umano/musicas/julho.png",
-        labia: "/umano/musicas/labia.png",
-        lambe: "/umano/musicas/lambe.png",
-        lobos: "/umano/musicas/lobos.png",
-        locadora: "/umano/musicas/locadora.png",
-        mem: "/umano/musicas/mem.png",
-        modo: "/umano/musicas/modo.png",
-        olhos: "/umano/musicas/vermelhos.png",
-        radio: "/umano/musicas/radio.png",
-        religiao: "/umano/musicas/religiao.png",
-        santo: "/umano/musicas/santo.png",
-        tempos: "/umano/musicas/tempos.png",
-        triste: "/umano/musicas/triste.png",
-        ultima: "/umano/musicas/ultima.png",
+        acontece: `${base}/umano/musicas/acontece.png`,
+        alinhamento: `${base}/umano/musicas/alinhamento.png`,
+        clarao: `${base}/umano/musicas/clarao.png`,
+        covers: `${base}/umano/musicas/covers.png`,
+        doce: `${base}/umano/musicas/doce.png`,
+        enquanto: `${base}/umano/musicas/enquanto.png`,
+        essa: `${base}/umano/musicas/essa.png`,
+        euquero: `${base}/umano/musicas/quero.png`,
+        idiota: `${base}/umano/musicas/idiota.png`,
+        julho: `${base}/umano/musicas/julho.png`,
+        labia: `${base}/umano/musicas/labia.png`,
+        lambe: `${base}/umano/musicas/lambe.png`,
+        lobos: `${base}/umano/musicas/lobos.png`,
+        locadora: `${base}/umano/musicas/locadora.png`,
+        mem: `${base}/umano/musicas/mem.png`,
+        modo: `${base}/umano/musicas/modo.png`,
+        olhos: `${base}/umano/musicas/vermelhos.png`,
+        radio: `${base}/umano/musicas/radio.png`,
+        religiao: `${base}/umano/musicas/religiao.png`,
+        santo: `${base}/umano/musicas/santo.png`,
+        tempos: `${base}/umano/musicas/tempos.png`,
+        triste: `${base}/umano/musicas/triste.png`,
+        ultima: `${base}/umano/musicas/ultima.png`,
     }
 
     const polaroidsPijama = {
-        azul: "/umano/pijamas/azul.png",
-        rosa: "/umano/pijamas/rosa.png",
-        verde: "/umano/pijamas/verde.png",
+        azul: `${base}/umano/pijamas/azul.png`,
+        rosa: `${base}/umano/pijamas/rosa.png`,
+        verde: `${base}/umano/pijamas/verde.png`,
     }
 
     const polaroidsEstado = {
-        bh: "/umano/estados/bh.png",
-        bsb: "/umano/estados/brasilia.png",
-        curitiba: "/umano/estados/curitiba.png",
-        maceio: "/umano/estados/maceio.png",
-        poa: "/umano/estados/poa.png",
-        recife: "/umano/estados/recife.png",
-        ribeirao: "/umano/estados/rp.png",
-        rio: "/umano/estados/rio.png",
-        sp: "/umano/estados/sp.png",
-        vitoria: "/umano/estados/vitoria.png",
+        bh: `${base}/umano/estados/bh.png`,
+        bsb: `${base}/umano/estados/brasilia.png`,
+        curitiba: `${base}/umano/estados/curitiba.png`,
+        maceio: `${base}/umano/estados/maceio.png`,
+        poa: `${base}/umano/estados/poa.png`,
+        recife: `${base}/umano/estados/recife.png`,
+        ribeirao: `${base}/umano/estados/rp.png`,
+        rio: `${base}/umano/estados/rio.png`,
+        sp: `${base}/umano/estados/sp.png`,
+        vitoria: `${base}/umano/estados/vitoria.png`,
     }
 
     

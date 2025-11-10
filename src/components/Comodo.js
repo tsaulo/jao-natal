@@ -2,11 +2,14 @@ import "./Comodo.css";
 import { useState } from "react";
 
 const Comodo = ({nome, updateCampo, children}) => {
+
+    const base = process.env.PUBLIC_URL;
+    
     const imagens = {
-        banheiro: "/umano/bases/blocais/bbanheiro.jpg",
-        entrada: "/umano/bases/blocais/bporta.jpg",
-        quarto: "/umano/bases/blocais/bquarto.jpg",
-        sala: "/umano/bases/blocais/bsala.png",
+        banheiro: `${base}/umano/bases/blocais/bbanheiro.jpg`,
+        entrada: `${base}/umano/bases/blocais/bporta.jpg`,
+        quarto: `${base}/umano/bases/blocais/bquarto.jpg`,
+        sala: `${base}/umano/bases/blocais/bsala.png`,
     };
 
     const [imagem, setImagem] = useState(imagens.entrada);
