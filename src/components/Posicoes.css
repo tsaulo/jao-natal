@@ -3,12 +3,12 @@
     height: 100%;
     display: flex;
     justify-content: center;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 .videomask{
     max-width: 600px;
-    max-height: 400px;
+    max-height: 200px;
     overflow: hidden;
     position: relative;
     display: flex;
@@ -18,8 +18,8 @@
 }
 
 video{
-    max-width: 600px;
-    max-height: 400px;
+    max-width: 300px;
+    max-height: 200px;
     overflow: hidden;
     position: relative;
     display: flex;
