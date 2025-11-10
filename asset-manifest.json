@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/jao-natal/static/css/main.cbf716fd.css",
-    "main.js": "/jao-natal/static/js/main.96b2782c.js",
+    "main.js": "/jao-natal/static/js/main.df4cb37a.js",
     "static/js/453.0864d35f.chunk.js": "/jao-natal/static/js/453.0864d35f.chunk.js",
     "static/media/jaofinal.png": "/jao-natal/static/media/jaofinal.ae08a718c19fd9956f8f.png",
     "index.html": "/jao-natal/index.html",
     "main.cbf716fd.css.map": "/jao-natal/static/css/main.cbf716fd.css.map",
-    "main.96b2782c.js.map": "/jao-natal/static/js/main.96b2782c.js.map",
+    "main.df4cb37a.js.map": "/jao-natal/static/js/main.df4cb37a.js.map",
     "453.0864d35f.chunk.js.map": "/jao-natal/static/js/453.0864d35f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.cbf716fd.css",
-    "static/js/main.96b2782c.js"
+    "static/js/main.df4cb37a.js"
   ]
 }
