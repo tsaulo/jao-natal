@@ -176,13 +176,8 @@ function App() {
             </Final>
           </main>
         )
-
         }
-        
       </div>
-      <footer className={`footer footer${step}`}>
-        <p>site feito por tsaulo (@guiltysanto)</p>
-        </footer>
     </div>
   );
 }
