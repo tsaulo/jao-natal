@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './App.css';
 import * as domtoimage from 'dom-to-image-more';
-import html2canvas from 'html2canvas';
+import { domToPng } from 'modern-screenshot';
 import Titulo from './components/Titulo';
 import Nome from './components/Nome';
 import Neve from './components/Neve';
@@ -50,73 +50,36 @@ function App() {
 
   }
 
- // App.js
-
-
-// ... outros imports
-
 const gerarImagem = async () => {
-    // 1. Opcional: Atraso para garantir que todas as animações/carregamentos terminem.
     await new Promise(r => setTimeout(r, 500)); 
 
     const elemento = document.getElementById("captura");
-    
-    // Configuração para garantir que CORS e estilos sejam embutidos
-    const options = {
-        // Usa a largura e altura reais do elemento para evitar cortes
-        width: elemento.offsetWidth, 
-        height: elemento.offsetHeight,
-        quality: 1.0,
-        // Garante que o CSS externo seja embutido no SVG
-        cacheBust: true, 
-        // Filtro opcional: apenas se você quiser ignorar certos elementos (ex: .no-capture)
-        // filter: (node) => {
-        //     return !node.classList?.contains('no-capture');
-        // }
-    };
-    
-    // 2. Converte o DOM para um Data URL contendo o SVG
-    const svgDataUrl = await domtoimage.toSvg(elemento, options);
 
-    // 3. Cria um Canvas para rasterizar o SVG em PNG
-    const canvasOriginal = document.createElement("canvas");
-    const ctx = canvasOriginal.getContext("2d");
-
-    // Cria uma imagem a partir do SVG Data URL
-    const img = new Image();
-    // ESSENCIAL para evitar problemas de CORS ao desenhar no Canvas
-    img.crossOrigin = 'anonymous'; 
-    img.src = svgDataUrl;
-    
-    // Espera a imagem carregar antes de desenhar
-    await new Promise(resolve => {
-        img.onload = () => {
-            canvasOriginal.width = img.width * 2; // Mantendo a lógica de escala
-            canvasOriginal.height = img.height * 2; // Mantendo a lógica de escala
-            
-            // Desenha a imagem SVG no canvas
-            ctx.drawImage(img, 0, 0, canvasOriginal.width, canvasOriginal.height);
-            resolve();
-        };
-        img.onerror = (e) => {
-             console.error("Erro ao carregar SVG como imagem:", e);
-             resolve(); // Continua para evitar travamento total
-        }
+    const pngDataUrl = await domToPng(elemento, {
+        scale: window.devicePixelRatio * 2,
     });
 
-
-    // --- Lógica de Corte (Baseada na sua implementação original) ---
-
     const isMobile = window.innerWidth <= 1024;
-
+    
     let link;
 
     if (isMobile) {
         link = document.createElement("a");
         link.download = "jao-natal.png";
-        link.href = canvasOriginal.toDataURL("image/png");
+        link.href = pngDataUrl;
     } else {
-        // Lógica de corte para desktop (apenas a coluna central)
+        const img = new Image();
+        img.src = pngDataUrl;
+        
+        await new Promise(resolve => img.onload = resolve);
+        
+        const canvasOriginal = document.createElement("canvas");
+        canvasOriginal.width = img.naturalWidth;
+        canvasOriginal.height = img.naturalHeight;
+        
+        const ctxOriginal = canvasOriginal.getContext("2d");
+        ctxOriginal.drawImage(img, 0, 0);
+
         const larguraFinal = canvasOriginal.width * 0.33; 
         const alturaFinal = canvasOriginal.height;
 
@@ -132,19 +95,17 @@ const gerarImagem = async () => {
             canvasOriginal,
             inicioX, 0,
             larguraFinal, alturaFinal, 
-            0, 0, 
-            larguraFinal, alturaFinal,
+            0, 0,
+            larguraFinal, alturaFinal  
         );
 
         link = document.createElement("a");
         link.download = "jao-natal.png";
         link.href = canvasCortado.toDataURL("image/png");
     }
-    
+
     link.click();
 };
-
-
 
   return (
     <div id="captura" className={`tela tela${step}`}>
