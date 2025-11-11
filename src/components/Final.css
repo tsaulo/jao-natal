@@ -65,12 +65,23 @@
     justify-content: space-between;
     width: 24vw;
     height: 80vh;
-    background-image: linear-gradient(to right, #bfbfbf, transparent), url("/public/umano/bases/bfundos/jaofinal.png");
+    background-image: url("/public/umano/bases/bfundos/jaofinal.png");
     background-size: 160%;
     background-position: 0% 30%;
     text-align: left;
     color: white; 
     animation: cheguei 2s ease-in-out forwards;
+}
+
+.campofim::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to right, #bfbfbf, transparent); 
+    z-index: -1; 
 }
 
 .campofim h2{

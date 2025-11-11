@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './App.css';
-import * as domtoimage from 'dom-to-image-more'
+import * as domtoimage from 'dom-to-image-more';
+import html2canvas from 'html2canvas';
 import Titulo from './components/Titulo';
 import Nome from './components/Nome';
 import Neve from './components/Neve';
@@ -144,6 +145,7 @@ const gerarImagem = async () => {
 };
 
 
+
   return (
     <div id="captura" className={`tela tela${step}`}>
       <header className="header"><Titulo step={step}/><br></br></header>
@@ -211,7 +213,7 @@ const gerarImagem = async () => {
             <Final dadoNome={formData.nome} dadoComodo={formData.comodo} dadoMusica={formData.musica} dadoPijama={formData.pijama} dadoEstado={formData.cidade}>
             <button 
                   className={`botao botao${step} no-capture`} 
-                  onClick={() => setTimeout(gerarImagem, 2000)}
+                  onClick={gerarImagem}
               >
                   Salvar
               </button>

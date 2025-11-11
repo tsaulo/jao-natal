@@ -1,7 +1,9 @@
 import "./Final.css";
+import { useState, useEffect } from "react";
 
 const Final = ( { dadoNome, dadoComodo, dadoMusica, dadoPijama, dadoEstado, children } ) => {
 
+<<<<<<< HEAD
     const carregarComoBase64 = (url) => {
         return new Promise((resolve) => {
             const img = new Image();
@@ -22,6 +24,23 @@ const Final = ( { dadoNome, dadoComodo, dadoMusica, dadoPijama, dadoEstado, chil
             };
             img.src = url;
         });
+=======
+    const [carregamentoCompleto, setCarregamentoCompleto] = useState(false);
+
+    const carregarComoBase64 = (url) => {
+        return new Promise((resolve) => {
+        const img = new Image();
+        img.crossOrigin = "anonymous"; 
+        img.onload = () => {
+        const canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        canvas.getContext("2d").drawImage(img, 0, 0);
+        resolve(canvas.toDataURL("image/png"));
+        };
+        img.src = url;
+    });
+>>>>>>> 40e4186633294f01edb19cca880d7f3a89975308
     };
 
     const polaroidsComodo = {
@@ -80,6 +99,7 @@ const Final = ( { dadoNome, dadoComodo, dadoMusica, dadoPijama, dadoEstado, chil
     const [imgMusica, setImgMusica] = useState(null);
     const [imgPijama, setImgPijama] = useState(null);
     const [imgEstado, setImgEstado] = useState(null);
+<<<<<<< HEAD
     
     // NOVO: Estado para sinalizar que o carregamento das 4 imagens terminou
     const [carregamentoCompleto, setCarregamentoCompleto] = useState(false);
@@ -89,18 +109,29 @@ const Final = ( { dadoNome, dadoComodo, dadoMusica, dadoPijama, dadoEstado, chil
         
         const carregarTodasImagens = async () => {
             // Espera a conversão de cada imagem para Base64
+=======
+
+    useEffect(() => {
+        const carregarTodasImagens = async () => {
+>>>>>>> 40e4186633294f01edb19cca880d7f3a89975308
             const comodo = await carregarComoBase64(polaroidsComodo[dadoComodo]);
             const musica = await carregarComoBase64(polaroidsMusica[dadoMusica]);
             const pijama = await carregarComoBase64(polaroidsPijama[dadoPijama]);
             const estado = await carregarComoBase64(polaroidsEstado[dadoEstado]);
             
+<<<<<<< HEAD
             // Atualiza os estados
+=======
+>>>>>>> 40e4186633294f01edb19cca880d7f3a89975308
             setImgComodo(comodo);
             setImgMusica(musica);
             setImgPijama(pijama);
             setImgEstado(estado);
+<<<<<<< HEAD
             
             // Sinaliza que todas as imagens estão prontas no DOM (Base64)
+=======
+>>>>>>> 40e4186633294f01edb19cca880d7f3a89975308
             setCarregamentoCompleto(true); 
         };
 
