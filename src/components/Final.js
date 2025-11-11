@@ -1,4 +1,5 @@
 import "./Final.css";
+import { useState, useEffect } from "react";
 
 const Final = ( { dadoNome, dadoComodo, dadoMusica, dadoPijama, dadoEstado, children } ) => {
 
