@@ -1,6 +1,22 @@
 import "./Final.css";
 
 const Final = ( { dadoNome, dadoComodo, dadoMusica, dadoPijama, dadoEstado, children } ) => {
+
+    const carregarComoBase64 = (url) => {
+        return new Promise((resolve) => {
+        const img = new Image();
+        img.crossOrigin = "anonymous"; 
+        img.onload = () => {
+        const canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        canvas.getContext("2d").drawImage(img, 0, 0);
+        resolve(canvas.toDataURL("image/png"));
+        };
+        img.src = url;
+    });
+    };
+
     const polaroidsComodo = {
         banheiro: "umano/locais/banheiro.png",
         entrada: "umano/locais/entrada.png",
@@ -53,6 +69,18 @@ const Final = ( { dadoNome, dadoComodo, dadoMusica, dadoPijama, dadoEstado, chil
         vitoria: "umano/estados/vitoria.png",
     }
 
+    const [imgComodo, setImgComodo] = useState(null);
+    const [imgMusica, setImgMusica] = useState(null);
+    const [imgPijama, setImgPijama] = useState(null);
+    const [imgEstado, setImgEstado] = useState(null);
+
+    useEffect(() => {
+    carregarComoBase64(polaroidsComodo[dadoComodo]).then(setImgComodo);
+    carregarComoBase64(polaroidsMusica[dadoMusica]).then(setImgMusica);
+    carregarComoBase64(polaroidsPijama[dadoPijama]).then(setImgPijama);
+    carregarComoBase64(polaroidsEstado[dadoEstado]).then(setImgEstado);
+    }, [dadoComodo, dadoMusica, dadoPijama, dadoEstado]);
+
     
 
     return(
@@ -62,10 +90,10 @@ const Final = ( { dadoNome, dadoComodo, dadoMusica, dadoPijama, dadoEstado, chil
                 <h2>Para <i>{dadoNome}</i>,</h2>
                 <p>o show perfeito é com o Jão...</p>
                 <div className="dentropolaroids">
-                    <img src={polaroidsComodo[dadoComodo]} className="polaroid polaroid1"/><br/>
-                    <img src={polaroidsMusica[dadoMusica]} className="polaroid polaroid2"/><br/>
-                    <img src={polaroidsPijama[dadoPijama]} className="polaroid polaroid3"/><br/>
-                    <img src={polaroidsEstado[dadoEstado]} className="polaroid polaroid4"/><br/>
+                    <img src={imgComodo} className="polaroid polaroid1"/><br/>
+                    <img src={imgMusica} className="polaroid polaroid2"/><br/>
+                    <img src={imgPijama} className="polaroid polaroid3"/><br/>
+                    <img src={imgEstado} className="polaroid polaroid4"/><br/>
                 </div>
                 <div style={{position:"relative", zIndex:999, display:"flex", justifyContent:"flex-end"}}>
                 {children}

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './App.css';
-import * as domtoimage from 'dom-to-image-more'
+import * as domtoimage from 'dom-to-image-more';
+import html2canvas from 'html2canvas';
 import Titulo from './components/Titulo';
 import Nome from './components/Nome';
 import Neve from './components/Neve';
@@ -49,57 +50,54 @@ function App() {
   }
 
   const gerarImagem = async () => {
-  await new Promise(resolve => setTimeout(resolve, 300));
+
+  
+  await new Promise(r => setTimeout(r, 300));
 
   const elemento = document.getElementById("captura");
-  if (!elemento) return;
 
-  const dataURL = await domtoimage.toPng(elemento, { quality: 1, scale: 4, filter: (node) => {
-    if (node.classList && node.classList.contains("no-capture")) return false;
-    return true;
-  } });
+  const canvasOriginal = await html2canvas(elemento, {
+    scale: window.devicePixelRatio * 2,
+    useCORS: true,
+    backgroundColor: null,
+  });
 
-  const img = new Image();
-  img.src = dataURL;
+  const isMobile = window.innerWidth <= 1024;
 
-  img.onload = () => {
 
-    const isMobile = window.innerWidth <= 1024;
-
-    if (isMobile) {
-      const link = document.createElement("a");
-      link.href = dataURL;
-      link.download = "turne-de-natal-2025.png";
-      link.click();
-      return;
-    }
-
-    const FINAL_WIDTH = 368; 
-    const FINAL_HEIGHT = img.height;
-
-    const canvas = document.createElement("canvas");
-    canvas.width = FINAL_WIDTH;
-    canvas.height = FINAL_HEIGHT;
-
-    const ctx = canvas.getContext("2d");
-
-    const cropX = (img.width - FINAL_WIDTH) / 2;
-    const cropY = 0;
-
-    ctx.drawImage(
-      img,
-      cropX, cropY, FINAL_WIDTH, FINAL_HEIGHT,  
-      0, 0, FINAL_WIDTH, FINAL_HEIGHT           
-    );
-
-    const finalURL = canvas.toDataURL("image/png");
-
+  if (isMobile) {
     const link = document.createElement("a");
-    link.href = finalURL;
-    link.download = "turne-de-natal-2025.png";
+    link.download = "jao-natal.png";
+    link.href = canvasOriginal.toDataURL("image/png");
     link.click();
-  };
+    return;
+  }
+
+  const larguraFinal = canvasOriginal.width * 0.55; 
+  const alturaFinal = canvasOriginal.height;
+
+  const inicioX = (canvasOriginal.width - larguraFinal) / 2;
+
+  const canvasCortado = document.createElement("canvas");
+  canvasCortado.width = larguraFinal;
+  canvasCortado.height = alturaFinal;
+
+  const ctx = canvasCortado.getContext("2d");
+
+  ctx.drawImage(
+    canvasOriginal,
+    inicioX, 0,               
+    larguraFinal, alturaFinal, 
+    0, 0,                      
+    larguraFinal, alturaFinal  
+  );
+
+  const link = document.createElement("a");
+  link.download = "jao-natal.png";
+  link.href = canvasCortado.toDataURL("image/png");
+  link.click();
 };
+
 
 
   return (
