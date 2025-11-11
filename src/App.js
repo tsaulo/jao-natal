@@ -73,7 +73,7 @@ function App() {
     return;
   }
 
-  const larguraFinal = canvasOriginal.width * 0.55; 
+  const larguraFinal = canvasOriginal.width * 0.33; 
   const alturaFinal = canvasOriginal.height;
 
   const inicioX = (canvasOriginal.width - larguraFinal) / 2;
@@ -167,7 +167,7 @@ function App() {
             <Final dadoNome={formData.nome} dadoComodo={formData.comodo} dadoMusica={formData.musica} dadoPijama={formData.pijama} dadoEstado={formData.cidade}>
             <button 
                   className={`botao botao${step} no-capture`} 
-                  onClick={() => setTimeout(gerarImagem, 2000)}
+                  onClick={gerarImagem}
               >
                   Salvar
               </button>

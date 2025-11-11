@@ -76,13 +76,21 @@ const Final = ( { dadoNome, dadoComodo, dadoMusica, dadoPijama, dadoEstado, chil
     const [imgEstado, setImgEstado] = useState(null);
 
     useEffect(() => {
-    carregarComoBase64(polaroidsComodo[dadoComodo]).then(setImgComodo);
-    carregarComoBase64(polaroidsMusica[dadoMusica]).then(setImgMusica);
-    carregarComoBase64(polaroidsPijama[dadoPijama]).then(setImgPijama);
-    carregarComoBase64(polaroidsEstado[dadoEstado]).then(setImgEstado);
-    }, [dadoComodo, dadoMusica, dadoPijama, dadoEstado]);
+        const carregarTodasImagens = async () => {
+            const comodo = await carregarComoBase64(polaroidsComodo[dadoComodo]);
+            const musica = await carregarComoBase64(polaroidsMusica[dadoMusica]);
+            const pijama = await carregarComoBase64(polaroidsPijama[dadoPijama]);
+            const estado = await carregarComoBase64(polaroidsEstado[dadoEstado]);
+            
+            setImgComodo(comodo);
+            setImgMusica(musica);
+            setImgPijama(pijama);
+            setImgEstado(estado);
+            setCarregamentoCompleto(true); 
+        };
 
-    
+        carregarTodasImagens();
+    }, [dadoComodo, dadoMusica, dadoPijama, dadoEstado]);
 
     return(
          <div className="dentrofinal">
@@ -97,7 +105,7 @@ const Final = ( { dadoNome, dadoComodo, dadoMusica, dadoPijama, dadoEstado, chil
                     <img src={imgEstado} className="polaroid polaroid4"/><br/>
                 </div>
                 <div style={{position:"relative", zIndex:999, display:"flex", justifyContent:"flex-end"}}>
-                {children}
+                {carregamentoCompleto && children}
             </div>
             </div>
             
