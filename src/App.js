@@ -11,6 +11,7 @@ import Figurinos from './components/Figurinos';
 import Posicoes from './components/Posicoes';
 import Final from './components/Final';
 
+
 function App() {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
@@ -48,57 +49,98 @@ function App() {
 
   }
 
-  const gerarImagem = async () => {
-  await new Promise(resolve => setTimeout(resolve, 300));
+ // App.js
 
-  const elemento = document.getElementById("captura");
-  if (!elemento) return;
 
-  const dataURL = await domtoimage.toPng(elemento, { quality: 1, scale: 4, filter: (node) => {
-    if (node.classList && node.classList.contains("no-capture")) return false;
-    return true;
-  } });
+// ... outros imports
 
-  const img = new Image();
-  img.src = dataURL;
+const gerarImagem = async () => {
+    // 1. Opcional: Atraso para garantir que todas as animações/carregamentos terminem.
+    await new Promise(r => setTimeout(r, 500)); 
 
-  img.onload = () => {
+    const elemento = document.getElementById("captura");
+    
+    // Configuração para garantir que CORS e estilos sejam embutidos
+    const options = {
+        // Usa a largura e altura reais do elemento para evitar cortes
+        width: elemento.offsetWidth, 
+        height: elemento.offsetHeight,
+        quality: 1.0,
+        // Garante que o CSS externo seja embutido no SVG
+        cacheBust: true, 
+        // Filtro opcional: apenas se você quiser ignorar certos elementos (ex: .no-capture)
+        // filter: (node) => {
+        //     return !node.classList?.contains('no-capture');
+        // }
+    };
+    
+    // 2. Converte o DOM para um Data URL contendo o SVG
+    const svgDataUrl = await domtoimage.toSvg(elemento, options);
+
+    // 3. Cria um Canvas para rasterizar o SVG em PNG
+    const canvasOriginal = document.createElement("canvas");
+    const ctx = canvasOriginal.getContext("2d");
+
+    // Cria uma imagem a partir do SVG Data URL
+    const img = new Image();
+    // ESSENCIAL para evitar problemas de CORS ao desenhar no Canvas
+    img.crossOrigin = 'anonymous'; 
+    img.src = svgDataUrl;
+    
+    // Espera a imagem carregar antes de desenhar
+    await new Promise(resolve => {
+        img.onload = () => {
+            canvasOriginal.width = img.width * 2; // Mantendo a lógica de escala
+            canvasOriginal.height = img.height * 2; // Mantendo a lógica de escala
+            
+            // Desenha a imagem SVG no canvas
+            ctx.drawImage(img, 0, 0, canvasOriginal.width, canvasOriginal.height);
+            resolve();
+        };
+        img.onerror = (e) => {
+             console.error("Erro ao carregar SVG como imagem:", e);
+             resolve(); // Continua para evitar travamento total
+        }
+    });
+
+
+    // --- Lógica de Corte (Baseada na sua implementação original) ---
 
     const isMobile = window.innerWidth <= 1024;
 
+    let link;
+
     if (isMobile) {
-      const link = document.createElement("a");
-      link.href = dataURL;
-      link.download = "turne-de-natal-2025.png";
-      link.click();
-      return;
+        link = document.createElement("a");
+        link.download = "jao-natal.png";
+        link.href = canvasOriginal.toDataURL("image/png");
+    } else {
+        // Lógica de corte para desktop (apenas a coluna central)
+        const larguraFinal = canvasOriginal.width * 0.33; 
+        const alturaFinal = canvasOriginal.height;
+
+        const inicioX = (canvasOriginal.width - larguraFinal) / 2;
+
+        const canvasCortado = document.createElement("canvas");
+        canvasCortado.width = larguraFinal;
+        canvasCortado.height = alturaFinal;
+
+        const ctxCortado = canvasCortado.getContext("2d");
+
+        ctxCortado.drawImage(
+            canvasOriginal,
+            inicioX, 0,
+            larguraFinal, alturaFinal, 
+            0, 0, 
+            larguraFinal, alturaFinal,
+        );
+
+        link = document.createElement("a");
+        link.download = "jao-natal.png";
+        link.href = canvasCortado.toDataURL("image/png");
     }
-
-    const FINAL_WIDTH = 368; 
-    const FINAL_HEIGHT = img.height;
-
-    const canvas = document.createElement("canvas");
-    canvas.width = FINAL_WIDTH;
-    canvas.height = FINAL_HEIGHT;
-
-    const ctx = canvas.getContext("2d");
-
-    const cropX = (img.width - FINAL_WIDTH) / 2;
-    const cropY = 0;
-
-    ctx.drawImage(
-      img,
-      cropX, cropY, FINAL_WIDTH, FINAL_HEIGHT,  
-      0, 0, FINAL_WIDTH, FINAL_HEIGHT           
-    );
-
-    const finalURL = canvas.toDataURL("image/png");
-
-    const link = document.createElement("a");
-    link.href = finalURL;
-    link.download = "turne-de-natal-2025.png";
+    
     link.click();
-  };
 };
 
 
