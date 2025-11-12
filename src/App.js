@@ -52,69 +52,76 @@ function App() {
   }
 
 const gerarImagem = async () => {
-    setTaPrintando(true);
 
-    await new Promise(r => setTimeout(r, 500)); 
+  setTaPrintando(true); 
 
-    const elemento = document.getElementById("captura");
+  try {
+  await new Promise(r => setTimeout(r, 500)); 
 
-    const pngDataUrl = await domToPng(elemento, {
-        scale: window.devicePixelRatio * 2,
-    });
+  const elemento = document.getElementById("captura");
 
-    const isMobile = window.innerWidth <= 1024;
-    
-    let link;
+  const pngDataUrl = await domToPng(elemento, {
+  scale: window.devicePixelRatio * 2,
+  });
 
-    if (isMobile) {
-        link = document.createElement("a");
-        link.download = "jao-natal.png";
-        link.href = pngDataUrl;
-    } else {
-        const img = new Image();
-        img.src = pngDataUrl;
-        
-        await new Promise(resolve => img.onload = resolve);
-        
-        const canvasOriginal = document.createElement("canvas");
-        canvasOriginal.width = img.naturalWidth;
-        canvasOriginal.height = img.naturalHeight;
-        
-        const ctxOriginal = canvasOriginal.getContext("2d");
-        ctxOriginal.drawImage(img, 0, 0);
+  const isMobile = window.innerWidth <= 1024;
 
-        const larguraFinal = canvasOriginal.width * 0.33; 
-        const alturaFinal = canvasOriginal.height;
+  let link;
 
-        const inicioX = (canvasOriginal.width - larguraFinal) / 2;
+  if (isMobile) {
+  link = document.createElement("a");
+  link.download = "jao-natal.png";
+  link.href = pngDataUrl;
+  } else {
 
-        const canvasCortado = document.createElement("canvas");
-        canvasCortado.width = larguraFinal;
-        canvasCortado.height = alturaFinal;
+  const img = new Image();
+  img.src = pngDataUrl;
 
-        const ctxCortado = canvasCortado.getContext("2d");
+  await new Promise(resolve => img.onload = resolve);
 
-        ctxCortado.drawImage(
-            canvasOriginal,
-            inicioX, 0,
-            larguraFinal, alturaFinal, 
-            0, 0,
-            larguraFinal, alturaFinal  
-        );
+  const canvasOriginal = document.createElement("canvas");
+  canvasOriginal.width = img.naturalWidth;
+  canvasOriginal.height = img.naturalHeight;
 
-        link = document.createElement("a");
-        link.download = "jao-natal.png";
-        link.href = canvasCortado.toDataURL("image/png");
-    }
+  const ctxOriginal = canvasOriginal.getContext("2d");
+  ctxOriginal.drawImage(img, 0, 0);
 
-    link.click();
-    setTimeout(setTaPrintando(true), 1000);
-}
+  const larguraFinal = canvasOriginal.width * 0.30; 
+  const alturaFinal = canvasOriginal.height;
+
+  const inicioX = (canvasOriginal.width - larguraFinal) / 2;
+
+  const canvasCortado = document.createElement("canvas");
+  canvasCortado.width = larguraFinal;
+  canvasCortado.height = alturaFinal;
+
+  const ctxCortado = canvasCortado.getContext("2d");
+
+  ctxCortado.drawImage(
+  canvasOriginal,
+  inicioX, 0,
+  larguraFinal, alturaFinal, 
+  0, 0,
+  larguraFinal, alturaFinal  
+  );
+
+  link = document.createElement("a");
+  link.download = "jao-natal.png";
+  link.href = canvasCortado.toDataURL("image/png");
+  }
+
+  link.click();
+  } catch (error) {
+  console.error("Erro durante a captura da imagem:", error);
+  } finally {
+  setTaPrintando(false); 
+  }
+  };
 
   return (
     <div id="captura" className={`tela tela${step}`}>
       <header className="header"><Titulo step={step}/><br></br></header>
-      <div className="no-capture">
+      <div style={{ visibility: taPrintando ? "hidden" : "visible "}}>
           <AudioPlayer></AudioPlayer>
         </div>
         <div className={`container container${step} ${fade}`}>  
