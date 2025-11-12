@@ -61,7 +61,7 @@ const gerarImagem = async () => {
   const elemento = document.getElementById("captura");
 
   const pngDataUrl = await domToPng(elemento, {
-  scale: window.devicePixelRatio * 2,
+  scale: window.devicePixelRatio * 1.5,
   });
 
   const isMobile = window.innerWidth <= 1024;
@@ -110,7 +110,12 @@ const gerarImagem = async () => {
   link.href = canvasCortado.toDataURL("image/png");
   }
 
+  const response = await fetch(link.href);
+  const blob = await response.blob();
+  const blobUrl = URL.createObjectURL(blob);
+  link.href = blobUrl;
   link.click();
+  setTimeout(() => URL.revokeObjectURL(blobUrl), 500);
   } catch (error) {
   console.error("Erro durante a captura da imagem:", error);
   } finally {
