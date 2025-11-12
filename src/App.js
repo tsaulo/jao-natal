@@ -29,6 +29,7 @@ function App() {
 
   const [desaparecendo, setDesaparecendo] = useState(false);
   const [fade, setFade] = useState("fade-enter-active");
+  const [taPrintando, setTaPrintando] = useState(false);
 
 
   const handleNext = () => {
@@ -51,6 +52,8 @@ function App() {
   }
 
 const gerarImagem = async () => {
+    setTaPrintando(true);
+
     await new Promise(r => setTimeout(r, 500)); 
 
     const elemento = document.getElementById("captura");
@@ -105,7 +108,8 @@ const gerarImagem = async () => {
     }
 
     link.click();
-};
+    setTimeout(setTaPrintando(true), 1000);
+}
 
   return (
     <div id="captura" className={`tela tela${step}`}>
@@ -175,8 +179,10 @@ const gerarImagem = async () => {
             <button 
                   className={`botao botao${step} no-capture`} 
                   onClick={gerarImagem}
+                  style={{ visibility: taPrintando ? "hidden" : "visible "}}
+                  disabled={taPrintando}
               >
-                  Salvar
+                  {taPrintando ? "Salvando..." : "Salvar"}
               </button>
             </Final>
           </main>
