@@ -36,7 +36,7 @@
 
 @media screen and (max-width: 1024px){
     .titulo{
-    max-width: 33vh;
+    max-width: 60vw;
     padding-bottom: 2vh;
 }
 }

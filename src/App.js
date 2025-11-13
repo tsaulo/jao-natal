@@ -30,6 +30,7 @@ function App() {
 
   const [desaparecendo, setDesaparecendo] = useState(false);
   const [fade, setFade] = useState("fade-enter-active");
+  const [showPatternCapture, setShowPatternCapture] = useState(false);
   const [taPrintando, setTaPrintando] = useState(false);
 
 
@@ -69,6 +70,25 @@ const gerarImagem = async () => {
         const isMobile = window.innerWidth <= 1024;
         let link;
 
+        let patternImage = null;
+        if (isMobile) {
+            setShowPatternCapture(true); 
+
+            const patternElement = document.getElementById("gradient-pattern-capture");
+            
+
+            const patternDataUrl = await domToPng(patternElement, {
+                width: 50, 
+                height: 50,
+                scale: 1, 
+            });
+
+            patternImage = new Image();
+            patternImage.src = patternDataUrl;
+            await new Promise(resolve => patternImage.onload = resolve);
+            
+            setShowPatternCapture(false); 
+        }
  
 
         if (isMobile) {
@@ -284,7 +304,20 @@ useEffect(() => {
         )
         }
       </div>
+      <div 
+      id="gradient-pattern-capture" 
+      style={{
+          width: '50px', 
+          height: '50px',
+          background: 'repeating-linear-gradient(40deg, #ddd6c0, #ddd6c0 20px, #8D1023 20px, #8D1023 40px)',
+          position: 'fixed',
+          top: '-100px', 
+          left: '-100px',
+          visibility: showPatternCapture ? 'visible' : 'hidden', // Controlado pelo estado
+      }}
+  />
     </div>
+    
   );
 }
 
