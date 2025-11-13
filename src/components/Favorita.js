@@ -48,7 +48,7 @@ const Favorita = ({updateCampo, children}) => {
             <br></br>
             <div style={{textAlign:"center"}}>
                 <div style={{margin: 0, padding: 0, transform: `rotate(${rotacao}deg)`}}>
-                    <img src={imagem} style={{width:"100%"}}/>
+                    <img src={imagem} style={{width:"110%"}}/>
                 </div>
             <select className="selectfav" onChange={(e) => {
                 trocarImagem(e);

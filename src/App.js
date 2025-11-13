@@ -93,7 +93,7 @@ const gerarImagem = async () => {
             const ctxOriginal = canvasOriginal.getContext("2d");
             ctxOriginal.drawImage(img, 0, 0);
 
-            const larguraFinal = canvasOriginal.width * 0.20; 
+            const larguraFinal = canvasOriginal.width * 0.22; 
             const alturaFinal = canvasOriginal.height;
 
             const inicioX = (canvasOriginal.width - larguraFinal) / 2;
