@@ -88,7 +88,7 @@ const gerarImagem = async () => {
             
             const alturaOriginal = canvasOriginal.height;
           
-            const larguraDesejada = Math.round(alturaOriginal * proporcaoLargura / proporcaoAltura);
+            const larguraDesejada = Math.floor(alturaOriginal * proporcaoLargura / proporcaoAltura);
             
             const larguraOriginal = canvasOriginal.width;
 

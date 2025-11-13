@@ -1,10 +1,10 @@
 .textao{
     text-align: left;
     border-top: 2px solid white;
+    margin-top: 4vh;
 }
 
 .escreva{
-    margin-top: 12vh;
     background: none;
     border: 0;
     font-family: 'Playfair Display';
@@ -29,7 +29,7 @@ h1{
 @media screen and (max-width: 1024px){
     .textao{
     padding: 0 5vw;
-
+    margin-top: 4vh;
 }
 
     .escreva{
