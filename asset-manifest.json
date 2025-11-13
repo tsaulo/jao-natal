@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/jao-natal/static/css/main.9629fd0b.css",
-    "main.js": "/jao-natal/static/js/main.01bbf61d.js",
+    "main.css": "/jao-natal/static/css/main.0d3b9b84.css",
+    "main.js": "/jao-natal/static/js/main.c96484e8.js",
     "static/js/453.0864d35f.chunk.js": "/jao-natal/static/js/453.0864d35f.chunk.js",
     "static/media/jaofinal.png": "/jao-natal/static/media/jaofinal.ae08a718c19fd9956f8f.png",
     "static/media/playfair-display-v40-latin-regular.woff2": "/jao-natal/static/media/playfair-display-v40-latin-regular.b029bd8deea1857dca78.woff2",
     "index.html": "/jao-natal/index.html",
-    "main.9629fd0b.css.map": "/jao-natal/static/css/main.9629fd0b.css.map",
-    "main.01bbf61d.js.map": "/jao-natal/static/js/main.01bbf61d.js.map",
+    "main.0d3b9b84.css.map": "/jao-natal/static/css/main.0d3b9b84.css.map",
+    "main.c96484e8.js.map": "/jao-natal/static/js/main.c96484e8.js.map",
     "453.0864d35f.chunk.js.map": "/jao-natal/static/js/453.0864d35f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.9629fd0b.css",
-    "static/js/main.01bbf61d.js"
+    "static/css/main.0d3b9b84.css",
+    "static/js/main.c96484e8.js"
   ]
 }
