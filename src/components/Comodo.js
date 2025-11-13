@@ -1,10 +1,10 @@
 import "./Comodo.css";
 import { useState, useEffect, useRef } from "react";
 
-const containerRef = useRef(null);
 
 const Comodo = ({nome, updateCampo, children}) => {
 
+const containerRef = useRef(null);
     useEffect(() => {
 
     const timer = setTimeout(() => {
@@ -17,7 +17,7 @@ const Comodo = ({nome, updateCampo, children}) => {
     return () => clearTimeout(timer);
     
   });
-  
+
     const imagens = {
         banheiro: "umano/bases/blocais/bbanheiro.png",
         entrada: "umano/bases/blocais/bporta.png",

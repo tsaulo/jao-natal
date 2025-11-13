@@ -1,9 +1,10 @@
 import "./Figurinos.css";
 import { useState, useEffect, useRef } from "react";
 
-const containerRef = useRef(null);
-
 const Figurinos = ({updateCampo, children}) => {
+
+    
+const containerRef = useRef(null);
     useEffect(() => {
 
     const timer = setTimeout(() => {

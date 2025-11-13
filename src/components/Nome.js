@@ -1,9 +1,8 @@
 import "./Nome.css";
 import { useRef, useEffect } from "react";
 
-const containerRef = useRef(null);
-
 const Nome = ( { dado, updateCampo } ) => {
+    const containerRef = useRef(null);
 
     useEffect(() => {
 
@@ -17,7 +16,7 @@ const Nome = ( { dado, updateCampo } ) => {
     return () => clearTimeout(timer);
     
   });
-  
+
     return(
         <div>
             <div ref={containerRef} className="textao">

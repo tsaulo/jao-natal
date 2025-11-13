@@ -1,9 +1,9 @@
 import "./Final.css";
 import { useRef, useEffect} from "react";
 
-const containerRef = useRef(null);
-
 const Final = ( { dadoNome, dadoComodo, dadoMusica, dadoPijama, dadoEstado, children } ) => {
+
+    const containerRef = useRef(null);
     useEffect(() => {
 
     const timer = setTimeout(() => {
