@@ -14,7 +14,7 @@ useEffect(() => {
 
     return () => clearTimeout(timer);
     
-  }, [step]);
+  });
 
 const Favorita = ({updateCampo, children}) => {
     const imagens = {

@@ -14,7 +14,7 @@ useEffect(() => {
 
     return () => clearTimeout(timer);
     
-  }, [step]);
+  });
 
 const Final = ( { dadoNome, dadoComodo, dadoMusica, dadoPijama, dadoEstado, children } ) => {
     const polaroidsComodo = {

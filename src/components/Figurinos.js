@@ -14,7 +14,7 @@ useEffect(() => {
 
     return () => clearTimeout(timer);
     
-  }, [step]);
+  });
 
 const Figurinos = ({updateCampo, children}) => {
     const imagens = {

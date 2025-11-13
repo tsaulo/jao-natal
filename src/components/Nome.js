@@ -14,7 +14,7 @@ useEffect(() => {
 
     return () => clearTimeout(timer);
     
-  }, [step]);
+  });
 
 const Nome = ( { dado, updateCampo } ) => {
     return(

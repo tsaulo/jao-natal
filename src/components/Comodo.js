@@ -14,7 +14,7 @@ useEffect(() => {
 
     return () => clearTimeout(timer);
     
-  }, [step]);
+  });
 
 const Comodo = ({nome, updateCampo, children}) => {
     const imagens = {
