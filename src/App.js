@@ -61,6 +61,7 @@ const gerarImagem = async () => {
 
         const elemento = document.getElementById("captura");
 
+
         const pngDataUrl = await domToPng(elemento, {
             scale: window.devicePixelRatio * 1.5,
             fetchExternalStyles: true,
@@ -69,52 +70,18 @@ const gerarImagem = async () => {
         const isMobile = window.innerWidth <= 1024;
         let link;
 
+       
 
         if (isMobile) {
             
-            const img = new Image();
-            img.src = pngDataUrl;
-            await new Promise(resolve => img.onload = resolve);
-
-            const canvasOriginal = document.createElement("canvas");
-            canvasOriginal.width = img.naturalWidth;
-            canvasOriginal.height = img.naturalHeight;
-            const ctxOriginal = canvasOriginal.getContext("2d");
-            ctxOriginal.drawImage(img, 0, 0);
-
-            
-            const proporcaoLargura = 9;
-            const proporcaoAltura = 16;
-            
-            const alturaOriginal = canvasOriginal.height;
-          
-            const larguraDesejada = Math.floor(alturaOriginal * proporcaoLargura / proporcaoAltura);
-            
-            const larguraOriginal = canvasOriginal.width;
-
-            const inicioX = (larguraOriginal - larguraDesejada) / 2;
-
-            const canvasCortado = document.createElement("canvas");
-            canvasCortado.width = larguraDesejada;
-            canvasCortado.height = alturaOriginal;
-            const ctxCortado = canvasCortado.getContext("2d");
-
-            
-            ctxCortado.drawImage(
-                canvasOriginal,
-                inicioX, 0, 
-                larguraDesejada, alturaOriginal, 
-                0, 0, 
-                larguraDesejada, alturaOriginal 
-            );
-
             link = document.createElement("a");
             link.download = "jao-natal-story.png";
-            link.href = canvasCortado.toDataURL("image/png");
+            link.href = pngDataUrl;
 
-        }         
+        } 
+        
         else {
-                      const img = new Image();
+            const img = new Image();
             img.src = pngDataUrl;
 
             await new Promise(resolve => img.onload = resolve);
@@ -126,7 +93,7 @@ const gerarImagem = async () => {
             const ctxOriginal = canvasOriginal.getContext("2d");
             ctxOriginal.drawImage(img, 0, 0);
 
-            const larguraFinal = canvasOriginal.width * 0.25; 
+            const larguraFinal = canvasOriginal.width * 0.20; 
             const alturaFinal = canvasOriginal.height;
 
             const inicioX = (canvasOriginal.width - larguraFinal) / 2;
@@ -150,7 +117,6 @@ const gerarImagem = async () => {
             link.href = canvasCortado.toDataURL("image/png");
         }
 
-      
         const response = await fetch(link.href);
         const blob = await response.blob();
         const blobUrl = URL.createObjectURL(blob);
@@ -184,12 +150,12 @@ useEffect(() => {
       <div style={{ visibility: taPrintando ? "hidden" : "visible "}}>
           <AudioPlayer></AudioPlayer>
         </div>
-        <div ref={containerRef} className={`container container${step} ${fade}`}>  
+        <div className={`container container${step} ${fade}`}>  
         {step === 1 && (
-          <main className="conteudo">
+          <main ref={containerRef} className="conteudo">
             <Neve></Neve>
             <img className={`jao1 ${desaparecendo ? "fade-out" : ""}`}
-  src="umano/bases/bfundos/começo2.png"/>
+            src="umano/bases/bfundos/começo2.png"/>
             <br></br>
             <div className="botoes" style={{justifyContent:"center"}}>
               <button className={`botao botao${step}`} onClick={() => {
@@ -201,7 +167,7 @@ useEffect(() => {
             </main>
         )
         }{step === 2 && (
-          <main className="conteudo">
+          <main ref={containerRef} className="conteudo">
           <Nome dado={formData} updateCampo={updateCampo}/>
           <div className="botoes" style={{justifyContent:"center"}}>
             <button className={`botao botao${step}`} disabled={formData.nome.trim() === ""}  onClick={handleNext}>Continuar</button>
@@ -209,7 +175,7 @@ useEffect(() => {
           
           </main>
         )}{step === 3 && (
-          <main className="conteudo">
+          <main ref={containerRef} className="conteudo">
             <Comodo nome={formData.nome} updateCampo={updateCampo}>
               <div className="botoes">
                 <button className={`botao botao${step}`} onClick={handleBack}>Voltar</button>
@@ -219,21 +185,21 @@ useEffect(() => {
               </Comodo>
           </main>
         )}{step === 4 && (
-          <main className="conteudo">
+          <main ref={containerRef} className="conteudo">
             <Favorita updateCampo={updateCampo}><div className="botoes">
                 <button className={`botao botao${step}`} onClick={handleBack}>Voltar</button>
               <button className={`botao botao${step}`} onClick={handleNext}>Continuar</button>
                 </div></Favorita>
           </main>
         )}{step === 5 && (
-          <main className="conteudo">
+          <main ref={containerRef} className="conteudo">
             <Figurinos updateCampo={updateCampo}><div className="botoes">
                 <button className={`botao botao${step}`} onClick={handleBack}>Voltar</button>
               <button className={`botao botao${step}`} onClick={handleNext}>Continuar</button>
                 </div></Figurinos>
           </main>
         )}{step === 6 && (
-          <main className="conteudo">
+          <main ref={containerRef} className="conteudo">
             <Posicoes updateCampo={updateCampo}><div className="botoes">
                 <button className={`botao botao${step}`} onClick={handleBack}>Voltar</button>
               <button className={`botao botao${step}`} onClick={handleNext}>Continuar</button>
@@ -241,7 +207,7 @@ useEffect(() => {
           </main>
         )
         }{step === 7 && (
-          <main id="final" className="conteudo">
+          <main ref={containerRef} id="final" className="conteudo">
             <Final dadoNome={formData.nome} dadoComodo={formData.comodo} dadoMusica={formData.musica} dadoPijama={formData.pijama} dadoEstado={formData.cidade}>
             <button 
                   className={`botao botao${step} no-capture`} 
