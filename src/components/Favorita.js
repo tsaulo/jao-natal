@@ -47,7 +47,7 @@ const Favorita = ({updateCampo, children}) => {
             <p><strong>Qual é a sua música favorita da setlist?</strong></p>
             <br></br>
             <div style={{textAlign:"center"}}>
-                <div style={{margin: 0, padding: 0, transform: `rotate(${rotacao}deg)`}}>
+                <div style={{margin: 0, padding: 0, transform: `rotate(${rotacao}deg)`, display: "flex", alignItems: "center", justifyContent: "center"}}>
                     <img src={imagem} style={{width:"110%"}}/>
                 </div>
             <select className="selectfav" onChange={(e) => {

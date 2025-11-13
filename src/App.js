@@ -61,26 +61,88 @@ const gerarImagem = async () => {
 
         const elemento = document.getElementById("captura");
 
-
         const pngDataUrl = await domToPng(elemento, {
-            scale: window.devicePixelRatio * 1.5,
+            scale: window.devicePixelRatio * 1.5, 
             fetchExternalStyles: true,
         });
 
         const isMobile = window.innerWidth <= 1024;
         let link;
 
-       
+ 
 
         if (isMobile) {
+            const img = new Image();
+            img.src = pngDataUrl;
+            await new Promise(resolve => img.onload = resolve);
+
+            const larguraOriginal = img.naturalWidth;
+            const alturaOriginal = img.naturalHeight;
+
+         
+            const larguraDesejadaStory = 1080;
+            const alturaDesejadaStory = 1920;
+            const proporcaoDesejada = larguraDesejadaStory / alturaDesejadaStory; 
+
+            const proporcaoOriginal = larguraOriginal / alturaOriginal;
+
+            let larguraFinal, alturaFinal;
+            let offsetX = 0;
+            let offsetY = 0;
+
+            if (proporcaoOriginal > proporcaoDesejada) {
+                alturaFinal = alturaDesejadaStory;
+                larguraFinal = Math.round(alturaFinal * proporcaoOriginal);
+                offsetX = (larguraFinal - larguraDesejadaStory) / 2; 
+            } 
             
+            else {
+                larguraFinal = larguraDesejadaStory;
+                alturaFinal = Math.round(larguraFinal / proporcaoOriginal);
+                offsetY = (alturaFinal - alturaDesejadaStory) / 2; 
+            }
+            
+            
+            const canvasFinalStory = document.createElement("canvas");
+            canvasFinalStory.width = larguraDesejadaStory;
+            canvasFinalStory.height = alturaDesejadaStory;
+            const ctxFinalStory = canvasFinalStory.getContext("2d");
+
+            
+            ctxFinalStory.fillStyle = "#efefef"; 
+            ctxFinalStory.fillRect(0, 0, larguraDesejadaStory, alturaDesejadaStory);
+
+            ctxFinalStory.drawImage(
+                img,
+                0, 0, 
+                larguraOriginal, alturaOriginal, 
+                (larguraDesejadaStory - (alturaDesejadaStory * proporcaoOriginal)) / 2, 
+                (alturaDesejadaStory - (larguraDesejadaStory / proporcaoOriginal)) / 2, 
+                alturaDesejadaStory * proporcaoOriginal, 
+                larguraDesejadaStory / proporcaoOriginal 
+            );
+
+          
+            let scaleRatio = Math.min(larguraDesejadaStory / larguraOriginal, alturaDesejadaStory / alturaOriginal);
+            let imgWidthScaled = larguraOriginal * scaleRatio;
+            let imgHeightScaled = alturaOriginal * scaleRatio;
+
+            
+            let xPos = (larguraDesejadaStory - imgWidthScaled) / 2;
+            let yPos = (alturaDesejadaStory - imgHeightScaled) / 2;
+
+          
+            ctxFinalStory.drawImage(img, xPos, yPos, imgWidthScaled, imgHeightScaled);
+
             link = document.createElement("a");
             link.download = "jao-natal-story.png";
-            link.href = pngDataUrl;
+            link.href = canvasFinalStory.toDataURL("image/png");
 
         } 
+      
         
         else {
+            
             const img = new Image();
             img.src = pngDataUrl;
 
@@ -93,7 +155,7 @@ const gerarImagem = async () => {
             const ctxOriginal = canvasOriginal.getContext("2d");
             ctxOriginal.drawImage(img, 0, 0);
 
-            const larguraFinal = canvasOriginal.width * 0.22; 
+            const larguraFinal = canvasOriginal.width * 0.215; 
             const alturaFinal = canvasOriginal.height;
 
             const inicioX = (canvasOriginal.width - larguraFinal) / 2;

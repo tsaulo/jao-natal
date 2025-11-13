@@ -50,7 +50,7 @@
   }
   60% {
     opacity: 1;
-    transform: translateX(-20vw);
+    transform: translateX(-30vw);
   }
   100% {
     opacity: 1;
