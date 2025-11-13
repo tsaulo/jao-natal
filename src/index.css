@@ -3,10 +3,10 @@
   font-display: swap; 
   font-style: normal;
   font-weight: 400;
-  src: url("%PUBLIC_URL%/fonts/playfair-display-v40-latin-regular.woff2") format('woff2'),
-  url("%PUBLIC_URL%/fonts/playfair-display-v40-latin-regular.woff") format('woff'),
-  url("%PUBLIC_URL%/fonts/playfair-display-v40-latin-regular.ttf") format('truetype'),
-  url("%PUBLIC_URL%/fonts/playfair-display-v40-latin-regular.eot"); 
+  src: url("fonts/playfair-display-v40-latin-regular.woff2") format('woff2'),
+  url("fonts/playfair-display-v40-latin-regular.woff") format('woff'),
+  url("fonts/playfair-display-v40-latin-regular.ttf") format('truetype'),
+  url("fonts/playfair-display-v40-latin-regular.eot"); 
 }
 
 body {
