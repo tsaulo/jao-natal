@@ -72,7 +72,7 @@ const gerarImagem = async () => {
         await new Promise(r => setTimeout(r, 500)); 
 
         const elemento = document.getElementById("captura");
-        const isMobile = window.innerWidth <= 1024;
+        const isMobile = window.innerWidth <= 1024; 
         let link;
         
         const pngDataUrl = await domToPng(elemento, {
@@ -80,82 +80,49 @@ const gerarImagem = async () => {
             fetchExternalStyles: true,
         });
 
-        if (isMobile) {
-            
-            const img = new Image(); 
-            img.src = pngDataUrl;
-            await new Promise(resolve => img.onload = resolve);
+        const img = new Image(); 
+        img.src = pngDataUrl;
+        await new Promise(resolve => img.onload = resolve);
 
-            const larguraOriginal = img.naturalWidth;
-            const alturaOriginal = img.naturalHeight;
-            const larguraDesejadaStory = 1080;
-            const alturaDesejadaStory = 1920;
+        const larguraOriginal = img.naturalWidth;
+        const alturaOriginal = img.naturalHeight;
+        
+        const larguraDesejadaStory = 1080;
+        const alturaDesejadaStory = 1920;
 
-            let scaleRatio = Math.min(larguraDesejadaStory / larguraOriginal, alturaDesejadaStory / alturaOriginal);
-            let imgWidthScaled = larguraOriginal * scaleRatio;
-            let imgHeightScaled = alturaOriginal * scaleRatio;
+        let scaleRatio = Math.min(larguraDesejadaStory / larguraOriginal, alturaDesejadaStory / alturaOriginal);
+        let imgWidthScaled = larguraOriginal * scaleRatio;
+        let imgHeightScaled = alturaOriginal * scaleRatio;
 
-            let xPos = (larguraDesejadaStory - imgWidthScaled) / 2;
-            let yPos = (alturaDesejadaStory - imgHeightScaled) / 2;
+        let xPos = (larguraDesejadaStory - imgWidthScaled) / 2;
+        let yPos = (alturaDesejadaStory - imgHeightScaled) / 2;
 
-            const canvasFinalStory = document.createElement("canvas");
-            canvasFinalStory.width = larguraDesejadaStory;
-            canvasFinalStory.height = alturaDesejadaStory;
-            const ctxFinalStory = canvasFinalStory.getContext("2d");
+        const canvasFinalStory = document.createElement("canvas");
+        canvasFinalStory.width = larguraDesejadaStory;
+        canvasFinalStory.height = alturaDesejadaStory;
+        const ctxFinalStory = canvasFinalStory.getContext("2d");
 
-            const backgroundImage = new Image();
-            backgroundImage.src ="umano/bases/bfundos/padrao.png"; 
-            
-            await new Promise(resolve => backgroundImage.onload = resolve);
+
+
+        const backgroundImage = new Image();
+
+        backgroundImage.src = "umano/bases/bfundos/padrao.png"; 
+        
+        await new Promise(resolve => backgroundImage.onload = resolve);
+
+        ctxFinalStory.drawImage(
+            backgroundImage,
+            0, 0, 
+            larguraDesejadaStory, alturaDesejadaStory
+        );
+        
+        ctxFinalStory.drawImage(img, xPos, yPos, imgWidthScaled, imgHeightScaled);
+
+        link = document.createElement("a");
+        link.download = "jao-natal.png";
+        link.href = canvasFinalStory.toDataURL("image/png");
 
         
-            ctxFinalStory.drawImage(
-                backgroundImage,
-                0, 0, 
-                larguraDesejadaStory, alturaDesejadaStory
-            );
-            ctxFinalStory.drawImage(img, xPos, yPos, imgWidthScaled, imgHeightScaled);
-
-            link = document.createElement("a");
-            link.download = "jao-natal-story.png";
-            link.href = canvasFinalStory.toDataURL("image/png");
-
-        } else {
-            const img = new Image();
-            img.src = pngDataUrl;
-
-            await new Promise(resolve => img.onload = resolve);
-
-            const canvasOriginal = document.createElement("canvas");
-            canvasOriginal.width = img.naturalWidth;
-            canvasOriginal.height = img.naturalHeight;
-
-            const ctxOriginal = canvasOriginal.getContext("2d");
-            ctxOriginal.drawImage(img, 0, 0);
-
-            const larguraFinal = canvasOriginal.width * 0.215; 
-            const alturaFinal = canvasOriginal.height;
-
-            const inicioX = (canvasOriginal.width - larguraFinal) / 2;
-
-            const canvasCortado = document.createElement("canvas");
-            canvasCortado.width = larguraFinal;
-            canvasCortado.height = alturaFinal;
-
-            const ctxCortado = canvasCortado.getContext("2d");
-
-            ctxCortado.drawImage(
-                canvasOriginal,
-                inicioX, 0,
-                larguraFinal, alturaFinal, 
-                0, 0,
-                larguraFinal, alturaFinal
-            );
-
-            link = document.createElement("a");
-            link.download = "jao-natal.png";
-            link.href = canvasCortado.toDataURL("image/png");
-        }
 
         const response = await fetch(link.href);
         const blob = await response.blob();

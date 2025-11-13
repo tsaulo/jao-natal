@@ -124,7 +124,7 @@
     }
 
     .polaroid1{
-        transform: translate(-2vw, 4vh) rotate(6deg);
+        transform: translate(0vw, 4vh) rotate(6deg);
     }
 
     .polaroid2{
