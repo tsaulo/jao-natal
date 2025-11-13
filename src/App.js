@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, } from 'react';
 import './App.css';
 import * as domtoimage from 'dom-to-image-more';
 import { domToPng } from 'modern-screenshot';
@@ -14,7 +14,6 @@ import Final from './components/Final';
 
 
 function App() {
-  const capturaRef = useRef(null);
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     nome: "",
@@ -65,23 +64,6 @@ function App() {
 
   }
 
-const createHorizontalStripedPattern = (ctx, color1, length1, color2, length2) => {
-    const patternWidth = 1920 * 2.5;
-    const repeatLength = length1 + length2;
-    const basePatternCanvas = document.createElement('canvas');
-    basePatternCanvas.width = patternWidth; 
-    basePatternCanvas.height = repeatLength;
-    const bpc_ctx = basePatternCanvas.getContext('2d');
-
-    bpc_ctx.fillStyle = color1;
-    bpc_ctx.fillRect(0, 0, repeatLength, length1);
-    bpc_ctx.fillStyle = color2;
-    bpc_ctx.fillRect(0, length1, repeatLength, length2);
-
-    const pattern = ctx.createPattern(basePatternCanvas, 'repeat');
-    return pattern;
-};
-
 const gerarImagem = async () => {
 
     setTaPrintando(true); 
@@ -100,7 +82,7 @@ const gerarImagem = async () => {
 
         if (isMobile) {
             
-            const img = new Image();
+            const img = new Image(); 
             img.src = pngDataUrl;
             await new Promise(resolve => img.onload = resolve);
 
@@ -109,7 +91,6 @@ const gerarImagem = async () => {
             const larguraDesejadaStory = 1080;
             const alturaDesejadaStory = 1920;
 
-            const proporcaoOriginal = larguraOriginal / alturaOriginal;
             let scaleRatio = Math.min(larguraDesejadaStory / larguraOriginal, alturaDesejadaStory / alturaOriginal);
             let imgWidthScaled = larguraOriginal * scaleRatio;
             let imgHeightScaled = alturaOriginal * scaleRatio;
@@ -122,25 +103,17 @@ const gerarImagem = async () => {
             canvasFinalStory.height = alturaDesejadaStory;
             const ctxFinalStory = canvasFinalStory.getContext("2d");
 
-
-            ctxFinalStory.save(); 
-
-            ctxFinalStory.translate(larguraDesejadaStory / 2, alturaDesejadaStory / 2);
-            ctxFinalStory.rotate(40 * Math.PI / 180); 
-            ctxFinalStory.translate(-larguraDesejadaStory / 2, -alturaDesejadaStory / 2);
-
-            const pattern = createHorizontalStripedPattern(
-                ctxFinalStory, 
-                '#ddd6c0', 100,
-                '#8D1023', 100 
-            );
-
-            ctxFinalStory.fillStyle = pattern;
-            const coverSize = Math.max(larguraDesejadaStory, alturaDesejadaStory) * 2;
-            ctxFinalStory.fillRect(-coverSize / 2, -coverSize / 2, coverSize, coverSize);
+            const backgroundImage = new Image();
+            backgroundImage.src ="umano/bases/bfundos/padrao.png"; 
             
-            ctxFinalStory.restore(); 
+            await new Promise(resolve => backgroundImage.onload = resolve);
 
+        
+            ctxFinalStory.drawImage(
+                backgroundImage,
+                0, 0, 
+                larguraDesejadaStory, alturaDesejadaStory
+            );
             ctxFinalStory.drawImage(img, xPos, yPos, imgWidthScaled, imgHeightScaled);
 
             link = document.createElement("a");
@@ -160,7 +133,7 @@ const gerarImagem = async () => {
             const ctxOriginal = canvasOriginal.getContext("2d");
             ctxOriginal.drawImage(img, 0, 0);
 
-            const larguraFinal = canvasOriginal.width * 0.25; 
+            const larguraFinal = canvasOriginal.width * 0.215; 
             const alturaFinal = canvasOriginal.height;
 
             const inicioX = (canvasOriginal.width - larguraFinal) / 2;
@@ -176,7 +149,7 @@ const gerarImagem = async () => {
                 inicioX, 0,
                 larguraFinal, alturaFinal, 
                 0, 0,
-                larguraFinal, alturaFinal  
+                larguraFinal, alturaFinal
             );
 
             link = document.createElement("a");
