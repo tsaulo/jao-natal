@@ -60,6 +60,7 @@
   display: flex;
   justify-content: center;
   transition: all ease-in 500ms;
+  font-family: "Playfair Display";
 }
 
 .tela1, .tela7 { background-color: #BFBFBF; }
@@ -151,7 +152,6 @@
   justify-content: space-between;
 }
 
-/* estilos individuais */
 .botao1, .botao6 {
   border: 2px solid #8D1023;
   color: #8D1023;

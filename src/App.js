@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import './App.css';
 import * as domtoimage from 'dom-to-image-more';
 import { domToPng } from 'modern-screenshot';
@@ -15,6 +15,7 @@ import Final from './components/Final';
 
 function App() {
   const [step, setStep] = useState(1);
+  const containerRef = useRef(null);
   const [formData, setFormData] = useState({
     nome: "",
     comodo: "entrada",
@@ -68,7 +69,6 @@ const gerarImagem = async () => {
         const isMobile = window.innerWidth <= 1024;
         let link;
 
-        // --- INÍCIO DA MODIFICAÇÃO PARA MOBILE (9:16) ---
 
         if (isMobile) {
             
@@ -82,46 +82,39 @@ const gerarImagem = async () => {
             const ctxOriginal = canvasOriginal.getContext("2d");
             ctxOriginal.drawImage(img, 0, 0);
 
-            // 1. Define a Proporção 9:16 (L: 9, A: 16)
+            
             const proporcaoLargura = 9;
             const proporcaoAltura = 16;
             
-            // 2. Calcula as dimensões de corte 9:16
             const alturaOriginal = canvasOriginal.height;
-            // Largura necessária = Altura * (9 / 16)
+          
             const larguraDesejada = Math.round(alturaOriginal * proporcaoLargura / proporcaoAltura);
             
             const larguraOriginal = canvasOriginal.width;
 
-            // 3. Calcula o ponto de início X para centralizar o corte
-            // Subtrai a largura desejada da largura total e divide por 2
             const inicioX = (larguraOriginal - larguraDesejada) / 2;
 
-            // 4. Cria o Canvas Cortado
             const canvasCortado = document.createElement("canvas");
             canvasCortado.width = larguraDesejada;
             canvasCortado.height = alturaOriginal;
             const ctxCortado = canvasCortado.getContext("2d");
 
-            // 5. Desenha a área 9:16 centralizada
+            
             ctxCortado.drawImage(
                 canvasOriginal,
-                inicioX, 0, // Ponto de início do corte na imagem original
-                larguraDesejada, alturaOriginal, // Tamanho da área a ser copiada
-                0, 0, // Ponto de destino no canvas cortado
-                larguraDesejada, alturaOriginal // Tamanho de destino
+                inicioX, 0, 
+                larguraDesejada, alturaOriginal, 
+                0, 0, 
+                larguraDesejada, alturaOriginal 
             );
 
             link = document.createElement("a");
             link.download = "jao-natal-story.png";
             link.href = canvasCortado.toDataURL("image/png");
 
-        } 
-        // --- FIM DA MODIFICAÇÃO PARA MOBILE ---
-        
+        }         
         else {
-            // Lógica de corte para DESKTOP (mantida em 0.25)
-            const img = new Image();
+                      const img = new Image();
             img.src = pngDataUrl;
 
             await new Promise(resolve => img.onload = resolve);
@@ -157,7 +150,7 @@ const gerarImagem = async () => {
             link.href = canvasCortado.toDataURL("image/png");
         }
 
-        // Lógica de download Blob (para iOS)
+      
         const response = await fetch(link.href);
         const blob = await response.blob();
         const blobUrl = URL.createObjectURL(blob);
@@ -172,6 +165,11 @@ const gerarImagem = async () => {
     }
 };
 
+useEffect(() => {
+  if (containerRef.current){
+    containerRef.current.scrollTop = 0;
+  }
+}, [step]);
 
   return (
     <div id="captura" className={`tela tela${step}`}>
@@ -179,7 +177,7 @@ const gerarImagem = async () => {
       <div style={{ visibility: taPrintando ? "hidden" : "visible "}}>
           <AudioPlayer></AudioPlayer>
         </div>
-        <div className={`container container${step} ${fade}`}>  
+        <div ref={containerRef} className={`container container${step} ${fade}`}>  
         {step === 1 && (
           <main className="conteudo">
             <Neve></Neve>
