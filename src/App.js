@@ -53,75 +53,125 @@ function App() {
 
 const gerarImagem = async () => {
 
-  setTaPrintando(true); 
+    setTaPrintando(true); 
 
-  try {
-  await new Promise(r => setTimeout(r, 500)); 
+    try {
+        await new Promise(r => setTimeout(r, 500)); 
 
-  const elemento = document.getElementById("captura");
+        const elemento = document.getElementById("captura");
 
-  const pngDataUrl = await domToPng(elemento, {
-  scale: window.devicePixelRatio * 1.5,
-  fetchExternalStyles: true,
-  });
+        const pngDataUrl = await domToPng(elemento, {
+            scale: window.devicePixelRatio * 1.5,
+            fetchExternalStyles: true,
+        });
 
-  const isMobile = window.innerWidth <= 1024;
-  let link;
+        const isMobile = window.innerWidth <= 1024;
+        let link;
 
-  if (isMobile) {
-  link = document.createElement("a");
-  link.download = "jao-natal.png";
-  link.href = pngDataUrl;
-  } else {
+        // --- INÍCIO DA MODIFICAÇÃO PARA MOBILE (9:16) ---
 
-  const img = new Image();
-  img.src = pngDataUrl;
+        if (isMobile) {
+            
+            const img = new Image();
+            img.src = pngDataUrl;
+            await new Promise(resolve => img.onload = resolve);
 
-  await new Promise(resolve => img.onload = resolve);
+            const canvasOriginal = document.createElement("canvas");
+            canvasOriginal.width = img.naturalWidth;
+            canvasOriginal.height = img.naturalHeight;
+            const ctxOriginal = canvasOriginal.getContext("2d");
+            ctxOriginal.drawImage(img, 0, 0);
 
-  const canvasOriginal = document.createElement("canvas");
-  canvasOriginal.width = img.naturalWidth;
-  canvasOriginal.height = img.naturalHeight;
+            // 1. Define a Proporção 9:16 (L: 9, A: 16)
+            const proporcaoLargura = 9;
+            const proporcaoAltura = 16;
+            
+            // 2. Calcula as dimensões de corte 9:16
+            const alturaOriginal = canvasOriginal.height;
+            // Largura necessária = Altura * (9 / 16)
+            const larguraDesejada = Math.round(alturaOriginal * proporcaoLargura / proporcaoAltura);
+            
+            const larguraOriginal = canvasOriginal.width;
 
-  const ctxOriginal = canvasOriginal.getContext("2d");
-  ctxOriginal.drawImage(img, 0, 0);
+            // 3. Calcula o ponto de início X para centralizar o corte
+            // Subtrai a largura desejada da largura total e divide por 2
+            const inicioX = (larguraOriginal - larguraDesejada) / 2;
 
-  const larguraFinal = canvasOriginal.width * 0.25; 
-  const alturaFinal = canvasOriginal.height;
+            // 4. Cria o Canvas Cortado
+            const canvasCortado = document.createElement("canvas");
+            canvasCortado.width = larguraDesejada;
+            canvasCortado.height = alturaOriginal;
+            const ctxCortado = canvasCortado.getContext("2d");
 
-  const inicioX = (canvasOriginal.width - larguraFinal) / 2;
+            // 5. Desenha a área 9:16 centralizada
+            ctxCortado.drawImage(
+                canvasOriginal,
+                inicioX, 0, // Ponto de início do corte na imagem original
+                larguraDesejada, alturaOriginal, // Tamanho da área a ser copiada
+                0, 0, // Ponto de destino no canvas cortado
+                larguraDesejada, alturaOriginal // Tamanho de destino
+            );
 
-  const canvasCortado = document.createElement("canvas");
-  canvasCortado.width = larguraFinal;
-  canvasCortado.height = alturaFinal;
+            link = document.createElement("a");
+            link.download = "jao-natal-story.png";
+            link.href = canvasCortado.toDataURL("image/png");
 
-  const ctxCortado = canvasCortado.getContext("2d");
+        } 
+        // --- FIM DA MODIFICAÇÃO PARA MOBILE ---
+        
+        else {
+            // Lógica de corte para DESKTOP (mantida em 0.25)
+            const img = new Image();
+            img.src = pngDataUrl;
 
-  ctxCortado.drawImage(
-  canvasOriginal,
-  inicioX, 0,
-  larguraFinal, alturaFinal, 
-  0, 0,
-  larguraFinal, alturaFinal  
-  );
+            await new Promise(resolve => img.onload = resolve);
 
-  link = document.createElement("a");
-  link.download = "jao-natal.png";
-  link.href = canvasCortado.toDataURL("image/png");
-  }
+            const canvasOriginal = document.createElement("canvas");
+            canvasOriginal.width = img.naturalWidth;
+            canvasOriginal.height = img.naturalHeight;
 
-  const response = await fetch(link.href);
-  const blob = await response.blob();
-  const blobUrl = URL.createObjectURL(blob);
-  link.href = blobUrl;
-  link.click();
-  setTimeout(() => URL.revokeObjectURL(blobUrl), 500);
-  } catch (error) {
-  console.error("Erro durante a captura da imagem:", error);
-  } finally {
-  setTaPrintando(false); 
-  }
-  };
+            const ctxOriginal = canvasOriginal.getContext("2d");
+            ctxOriginal.drawImage(img, 0, 0);
+
+            const larguraFinal = canvasOriginal.width * 0.25; 
+            const alturaFinal = canvasOriginal.height;
+
+            const inicioX = (canvasOriginal.width - larguraFinal) / 2;
+
+            const canvasCortado = document.createElement("canvas");
+            canvasCortado.width = larguraFinal;
+            canvasCortado.height = alturaFinal;
+
+            const ctxCortado = canvasCortado.getContext("2d");
+
+            ctxCortado.drawImage(
+                canvasOriginal,
+                inicioX, 0,
+                larguraFinal, alturaFinal, 
+                0, 0,
+                larguraFinal, alturaFinal  
+            );
+
+            link = document.createElement("a");
+            link.download = "jao-natal.png";
+            link.href = canvasCortado.toDataURL("image/png");
+        }
+
+        // Lógica de download Blob (para iOS)
+        const response = await fetch(link.href);
+        const blob = await response.blob();
+        const blobUrl = URL.createObjectURL(blob);
+        link.href = blobUrl;
+        link.click();
+        setTimeout(() => URL.revokeObjectURL(blobUrl), 500);
+
+    } catch (error) {
+        console.error("Erro durante a captura da imagem:", error);
+    } finally {
+        setTaPrintando(false); 
+    }
+};
+
 
   return (
     <div id="captura" className={`tela tela${step}`}>
