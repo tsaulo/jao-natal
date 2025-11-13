@@ -39,7 +39,7 @@ function App() {
     window.scrollTo({
         top: 0,
         left: 0,
-        behavior: "instant"
+        behavior: "smooth",
     });
     
     setTimeout(() => {
@@ -51,6 +51,12 @@ function App() {
   }
   const handleBack = () => {
     setFade("fade-exit-active");
+
+    window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+    });
     
     setTimeout(() => {
         setStep(prev => prev - 1);
@@ -60,9 +66,10 @@ function App() {
   }
 
 const createHorizontalStripedPattern = (ctx, color1, length1, color2, length2) => {
+    const patternWidth = 1920 * 2.5;
     const repeatLength = length1 + length2;
     const basePatternCanvas = document.createElement('canvas');
-    basePatternCanvas.width = repeatLength; 
+    basePatternCanvas.width = patternWidth; 
     basePatternCanvas.height = repeatLength;
     const bpc_ctx = basePatternCanvas.getContext('2d');
 
@@ -129,7 +136,8 @@ const gerarImagem = async () => {
             );
 
             ctxFinalStory.fillStyle = pattern;
-            ctxFinalStory.fillRect(0, 0, larguraDesejadaStory, alturaDesejadaStory);
+            const coverSize = Math.max(larguraDesejadaStory, alturaDesejadaStory) * 2;
+            ctxFinalStory.fillRect(-coverSize / 2, -coverSize / 2, coverSize, coverSize);
             
             ctxFinalStory.restore(); 
 
