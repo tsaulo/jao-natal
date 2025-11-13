@@ -13,7 +13,7 @@
   font-family: 'Playfair Display';
   font-style: normal;
   font-weight: 400;
-  src: url('/fonts/playfair-display-v40-latin-regular.eot?#iefix') format('embedded-opentype'); 
+  src: url('/public/fonts/playfair-display-v40-latin-regular.eot?#iefix') format('embedded-opentype'); 
 }
 
 body {
