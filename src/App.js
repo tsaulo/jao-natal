@@ -166,10 +166,17 @@ const gerarImagem = async () => {
 };
 
 useEffect(() => {
-  if (containerRef.current){
-    containerRef.current.scrollTop = 0;
-  }
-}, [step]);
+
+    const timer = setTimeout(() => {
+        if (containerRef.current) {
+
+            containerRef.current.scrollTop = 0;
+        }
+    }, 1000); 
+
+    return () => clearTimeout(timer);
+    
+  }, [step]);
 
   return (
     <div id="captura" className={`tela tela${step}`}>

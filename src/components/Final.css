@@ -112,8 +112,8 @@
 
 @media screen and (max-width: 1024px){
     .campofim{
-    width: 95vw;
-    height: 90vh;
+    width: 100vw;
+    height: 100vh;
     padding: 0 2.5vw;
     background-position: 0% 20%;
     }
