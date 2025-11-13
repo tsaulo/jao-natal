@@ -53,6 +53,29 @@ function App() {
 
   }
 
+const createStripedPattern = (ctx, angle, color1, length1, color2, length2) => {
+    const repeatLength = length1 + length2;
+    const canvasSize = 100; 
+
+    const patternCanvas = document.createElement('canvas');
+    patternCanvas.width = canvasSize;
+    patternCanvas.height = canvasSize;
+    const ptx = patternCanvas.getContext('2d');
+    patternCanvas.width = repeatLength;
+    patternCanvas.height = repeatLength;
+
+    ptx.fillStyle = color1;
+    ptx.fillRect(0, 0, repeatLength, length1);
+
+    ptx.fillStyle = color2;
+    ptx.fillRect(0, length1, repeatLength, length2);
+
+    const pattern = ctx.createPattern(patternCanvas, 'repeat');
+
+    return pattern;
+
+  }
+
 const gerarImagem = async () => {
 
     setTaPrintando(true); 
@@ -69,26 +92,6 @@ const gerarImagem = async () => {
 
         const isMobile = window.innerWidth <= 1024;
         let link;
-
-        let patternImage = null;
-        if (isMobile) {
-            setShowPatternCapture(true); 
-
-            const patternElement = document.getElementById("gradient-pattern-capture");
-            
-
-            const patternDataUrl = await domToPng(patternElement, {
-                width: 50, 
-                height: 50,
-                scale: 1, 
-            });
-
-            patternImage = new Image();
-            patternImage.src = patternDataUrl;
-            await new Promise(resolve => patternImage.onload = resolve);
-            
-            setShowPatternCapture(false); 
-        }
  
 
         if (isMobile) {
@@ -128,16 +131,16 @@ const gerarImagem = async () => {
             canvasFinalStory.height = alturaDesejadaStory;
             const ctxFinalStory = canvasFinalStory.getContext("2d");
 
-            ctxFinalStory.drawImage(
-                img,
-                0, 0, 
-                larguraOriginal, alturaOriginal, 
-                (larguraDesejadaStory - (alturaDesejadaStory * proporcaoOriginal)) / 2, 
-                (alturaDesejadaStory - (larguraDesejadaStory / proporcaoOriginal)) / 2, 
-                alturaDesejadaStory * proporcaoOriginal, 
-                larguraDesejadaStory / proporcaoOriginal 
+            const pattern = createStripedPattern(
+                ctxFinalStory, 
+                40, 
+                '#ddd6c0', 20, 
+                '#8D1023', 20 
             );
 
+            ctxFinalStory.fillStyle = pattern;
+
+            ctxFinalStory.fillRect(0, 0, larguraDesejadaStory, alturaDesejadaStory);
           
             let scaleRatio = Math.min(larguraDesejadaStory / larguraOriginal, alturaDesejadaStory / alturaOriginal);
             let imgWidthScaled = larguraOriginal * scaleRatio;
@@ -300,18 +303,7 @@ useEffect(() => {
         )
         }
       </div>
-      <div 
-      id="gradient-pattern-capture" 
-      style={{
-          width: '50px', 
-          height: '50px',
-          background: 'repeating-linear-gradient(40deg, #ddd6c0, #ddd6c0 20px, #8D1023 20px, #8D1023 40px)',
-          position: 'fixed',
-          top: '-100px', 
-          left: '-100px',
-          visibility: showPatternCapture ? 'visible' : 'hidden', // Controlado pelo estado
-      }}
-  />
+      
     </div>
     
   );
