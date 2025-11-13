@@ -128,10 +128,6 @@ const gerarImagem = async () => {
             canvasFinalStory.height = alturaDesejadaStory;
             const ctxFinalStory = canvasFinalStory.getContext("2d");
 
-            
-            ctxFinalStory.fillStyle = "#efefef"; 
-            ctxFinalStory.fillRect(0, 0, larguraDesejadaStory, alturaDesejadaStory);
-
             ctxFinalStory.drawImage(
                 img,
                 0, 0, 
