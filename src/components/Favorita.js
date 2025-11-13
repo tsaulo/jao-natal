@@ -1,5 +1,20 @@
 import "./Favorita.css";
-import { useState } from "react";
+import { useState, useState, useRef } from "react";
+
+const containerRef = useRef(null);
+
+useEffect(() => {
+
+    const timer = setTimeout(() => {
+        if (containerRef.current) {
+
+            containerRef.current.scrollTop = 0;
+        }
+    }, 100); 
+
+    return () => clearTimeout(timer);
+    
+  }, [step]);
 
 const Favorita = ({updateCampo, children}) => {
     const imagens = {
@@ -40,7 +55,7 @@ const Favorita = ({updateCampo, children}) => {
     };
 
     return(
-        <div className="dentrofav">
+        <div ref={containerRef} className="dentrofav">
             <div className="campofav">
             <h2>Uma turnê intimista...</h2>
             <p>A setlist do Especial de Natal foi feita para ser <i>intimista</i>, com músicas diferentes da <strong>SUPERTURNÊ</strong>.</p>

@@ -1,4 +1,20 @@
 import "./Final.css";
+import { useRef } from "react";
+
+const containerRef = useRef(null);
+
+useEffect(() => {
+
+    const timer = setTimeout(() => {
+        if (containerRef.current) {
+
+            containerRef.current.scrollTop = 0;
+        }
+    }, 100); 
+
+    return () => clearTimeout(timer);
+    
+  }, [step]);
 
 const Final = ( { dadoNome, dadoComodo, dadoMusica, dadoPijama, dadoEstado, children } ) => {
     const polaroidsComodo = {
@@ -56,7 +72,7 @@ const Final = ( { dadoNome, dadoComodo, dadoMusica, dadoPijama, dadoEstado, chil
     
 
     return(
-         <div className="dentrofinal">
+         <div ref={containerRef} className="dentrofinal">
             <div className="campofim">
             <div>
                 <h2>Para <i>{dadoNome}</i>,</h2>

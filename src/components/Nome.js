@@ -1,9 +1,25 @@
 import "./Nome.css";
+import { useRef } from "react";
+
+const containerRef = useRef(null);
+
+useEffect(() => {
+
+    const timer = setTimeout(() => {
+        if (containerRef.current) {
+
+            containerRef.current.scrollTop = 0;
+        }
+    }, 100); 
+
+    return () => clearTimeout(timer);
+    
+  }, [step]);
 
 const Nome = ( { dado, updateCampo } ) => {
     return(
         <div>
-            <div className="textao">
+            <div ref={containerRef} className="textao">
                 <p style={{fontSize:"1.8vh"}}>
                 No dia 29/11/2024, foi iniciada a <strong>Turnê Especial de Natal</strong> do Jão.
                 <br/><br/>

@@ -15,7 +15,6 @@ import Final from './components/Final';
 
 function App() {
   const [step, setStep] = useState(1);
-  const containerRef = useRef(null);
   const [formData, setFormData] = useState({
     nome: "",
     comodo: "entrada",
@@ -30,7 +29,6 @@ function App() {
 
   const [desaparecendo, setDesaparecendo] = useState(false);
   const [fade, setFade] = useState("fade-enter-active");
-  const [showPatternCapture, setShowPatternCapture] = useState(false);
   const [taPrintando, setTaPrintando] = useState(false);
 
 
@@ -53,28 +51,41 @@ function App() {
 
   }
 
-const createStripedPattern = (ctx, angle, color1, length1, color2, length2) => {
+const createAngledStripedPattern = (ctx, angle, color1, length1, color2, length2) => {
     const repeatLength = length1 + length2;
-    const canvasSize = 100; 
 
-    const patternCanvas = document.createElement('canvas');
-    patternCanvas.width = canvasSize;
-    patternCanvas.height = canvasSize;
-    const ptx = patternCanvas.getContext('2d');
-    patternCanvas.width = repeatLength;
-    patternCanvas.height = repeatLength;
+    const basePatternCanvas = document.createElement('canvas');
+    basePatternCanvas.width = repeatLength;
+    basePatternCanvas.height = repeatLength;
+    const bpc_ctx = basePatternCanvas.getContext('2d');
 
-    ptx.fillStyle = color1;
-    ptx.fillRect(0, 0, repeatLength, length1);
+    bpc_ctx.fillStyle = color1;
+    bpc_ctx.fillRect(0, 0, repeatLength, length1);
+    bpc_ctx.fillStyle = color2;
+    bpc_ctx.fillRect(0, length1, repeatLength, length2);
 
-    ptx.fillStyle = color2;
-    ptx.fillRect(0, length1, repeatLength, length2);
+    const diagonal = Math.sqrt(Math.pow(repeatLength, 2) * 2);
+    const rotatedSize = Math.ceil(diagonal * 2);
 
-    const pattern = ctx.createPattern(patternCanvas, 'repeat');
+    const rotatedPatternCanvas = document.createElement('canvas');
+    rotatedPatternCanvas.width = rotatedSize;
+    rotatedPatternCanvas.height = rotatedSize;
+    const rpc_ctx = rotatedPatternCanvas.getContext('2d');
+
+    rpc_ctx.translate(rotatedSize / 2, rotatedSize / 2);
+    rpc_ctx.rotate(angle * Math.PI / 180);
+    rpc_ctx.translate(-rotatedSize / 2, -rotatedSize / 2);
+
+    for (let x = -rotatedSize; x < rotatedSize; x += repeatLength) {
+        for (let y = -rotatedSize; y < rotatedSize; y += repeatLength) {
+            rpc_ctx.drawImage(basePatternCanvas, x, y);
+        }
+    }
+
+    const pattern = ctx.createPattern(rotatedPatternCanvas, 'repeat');
 
     return pattern;
-
-  }
+}
 
 const gerarImagem = async () => {
 
@@ -110,8 +121,6 @@ const gerarImagem = async () => {
             const proporcaoOriginal = larguraOriginal / alturaOriginal;
 
             let larguraFinal, alturaFinal;
-            let offsetX = 0;
-            let offsetY = 0;
 
             if (proporcaoOriginal > proporcaoDesejada) {
                 alturaFinal = alturaDesejadaStory;
@@ -131,11 +140,11 @@ const gerarImagem = async () => {
             canvasFinalStory.height = alturaDesejadaStory;
             const ctxFinalStory = canvasFinalStory.getContext("2d");
 
-            const pattern = createStripedPattern(
+            const pattern = createAngledStripedPattern(
                 ctxFinalStory, 
                 40, 
-                '#ddd6c0', 20, 
-                '#8D1023', 20 
+                '#ddd6c0', 100, 
+                '#8D1023', 100 
             );
 
             ctxFinalStory.fillStyle = pattern;
@@ -212,19 +221,6 @@ const gerarImagem = async () => {
     }
 };
 
-useEffect(() => {
-
-    const timer = setTimeout(() => {
-        if (containerRef.current) {
-
-            containerRef.current.scrollTop = 0;
-        }
-    }, 1000); 
-
-    return () => clearTimeout(timer);
-    
-  }, [step]);
-
   return (
     <div id="captura" className={`tela tela${step}`}>
       <header className="header"><Titulo step={step}/><br></br></header>
@@ -233,7 +229,7 @@ useEffect(() => {
         </div>
         <div className={`container container${step} ${fade}`}>  
         {step === 1 && (
-          <main ref={containerRef} className="conteudo">
+          <main className="conteudo">
             <Neve></Neve>
             <img className={`jao1 ${desaparecendo ? "fade-out" : ""}`}
             src="umano/bases/bfundos/começo2.png"/>
@@ -248,7 +244,7 @@ useEffect(() => {
             </main>
         )
         }{step === 2 && (
-          <main ref={containerRef} className="conteudo">
+          <main className="conteudo">
           <Nome dado={formData} updateCampo={updateCampo}/>
           <div className="botoes" style={{justifyContent:"center"}}>
             <button className={`botao botao${step}`} disabled={formData.nome.trim() === ""}  onClick={handleNext}>Continuar</button>
@@ -256,7 +252,7 @@ useEffect(() => {
           
           </main>
         )}{step === 3 && (
-          <main ref={containerRef} className="conteudo">
+          <main className="conteudo">
             <Comodo nome={formData.nome} updateCampo={updateCampo}>
               <div className="botoes">
                 <button className={`botao botao${step}`} onClick={handleBack}>Voltar</button>
@@ -266,21 +262,21 @@ useEffect(() => {
               </Comodo>
           </main>
         )}{step === 4 && (
-          <main ref={containerRef} className="conteudo">
+          <main className="conteudo">
             <Favorita updateCampo={updateCampo}><div className="botoes">
                 <button className={`botao botao${step}`} onClick={handleBack}>Voltar</button>
               <button className={`botao botao${step}`} onClick={handleNext}>Continuar</button>
                 </div></Favorita>
           </main>
         )}{step === 5 && (
-          <main ref={containerRef} className="conteudo">
+          <main className="conteudo">
             <Figurinos updateCampo={updateCampo}><div className="botoes">
                 <button className={`botao botao${step}`} onClick={handleBack}>Voltar</button>
               <button className={`botao botao${step}`} onClick={handleNext}>Continuar</button>
                 </div></Figurinos>
           </main>
         )}{step === 6 && (
-          <main ref={containerRef} className="conteudo">
+          <main className="conteudo">
             <Posicoes updateCampo={updateCampo}><div className="botoes">
                 <button className={`botao botao${step}`} onClick={handleBack}>Voltar</button>
               <button className={`botao botao${step}`} onClick={handleNext}>Continuar</button>
@@ -288,7 +284,7 @@ useEffect(() => {
           </main>
         )
         }{step === 7 && (
-          <main ref={containerRef} id="final" className="conteudo">
+          <main id="final" className="conteudo">
             <Final dadoNome={formData.nome} dadoComodo={formData.comodo} dadoMusica={formData.musica} dadoPijama={formData.pijama} dadoEstado={formData.cidade}>
             <button 
                   className={`botao botao${step} no-capture`} 

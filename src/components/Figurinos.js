@@ -1,5 +1,20 @@
 import "./Figurinos.css";
-import { useState } from "react";
+import { useState, useState, useRef } from "react";
+
+const containerRef = useRef(null);
+
+useEffect(() => {
+
+    const timer = setTimeout(() => {
+        if (containerRef.current) {
+
+            containerRef.current.scrollTop = 0;
+        }
+    }, 100); 
+
+    return () => clearTimeout(timer);
+    
+  }, [step]);
 
 const Figurinos = ({updateCampo, children}) => {
     const imagens = {
@@ -20,7 +35,7 @@ const Figurinos = ({updateCampo, children}) => {
     };
 
     return(
-        <div className="dentro">
+        <div ref={containerRef} className="dentro">
             <div className="campofig">
             <h2>...com figurinos <i>especiais</i>...</h2>
             <p>Numa turnê em que o palco é a casa do Jão, nada mais justo do que ele usar roupas confortáveis como... pijamas!</p>

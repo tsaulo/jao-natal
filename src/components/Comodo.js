@@ -1,5 +1,20 @@
 import "./Comodo.css";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+
+const containerRef = useRef(null);
+
+useEffect(() => {
+
+    const timer = setTimeout(() => {
+        if (containerRef.current) {
+
+            containerRef.current.scrollTop = 0;
+        }
+    }, 100); 
+
+    return () => clearTimeout(timer);
+    
+  }, [step]);
 
 const Comodo = ({nome, updateCampo, children}) => {
     const imagens = {
@@ -21,7 +36,7 @@ const Comodo = ({nome, updateCampo, children}) => {
     };
 
     return(
-        <div className="dentrocom">
+        <div ref={containerRef} className="dentrocom">
             <div className="campo">
             <h2>Olá, <i>{nome}</i>! A casa é sua!</h2>
             <p>Falando em casa, um dos pontos mais marcantes da turnê foi a estrutura do palco em formato de casa.</p>
