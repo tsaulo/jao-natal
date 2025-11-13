@@ -60,7 +60,6 @@
   display: flex;
   justify-content: center;
   transition: all ease-in 500ms;
-
 }
 
 .tela1, .tela7 { background-color: #BFBFBF; }
@@ -68,6 +67,11 @@
 .tela3 { background-color: #2B7D2D; }
 .tela4 { background-color: #CB932B; }
 .tela5 { background-color: #2b3e7d; }
+
+.tela7{
+  width: calc(100vh * 9 / 16);
+  max-width: 100vw;
+}
 
 
 .container, .container2, .container7{

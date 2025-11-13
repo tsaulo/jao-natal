@@ -62,10 +62,10 @@ const gerarImagem = async () => {
 
   const pngDataUrl = await domToPng(elemento, {
   scale: window.devicePixelRatio * 1.5,
+  fetchExternalStyles: true,
   });
 
   const isMobile = window.innerWidth <= 1024;
-
   let link;
 
   if (isMobile) {
@@ -86,7 +86,7 @@ const gerarImagem = async () => {
   const ctxOriginal = canvasOriginal.getContext("2d");
   ctxOriginal.drawImage(img, 0, 0);
 
-  const larguraFinal = canvasOriginal.width * 0.30; 
+  const larguraFinal = canvasOriginal.width * 0.25; 
   const alturaFinal = canvasOriginal.height;
 
   const inicioX = (canvasOriginal.width - larguraFinal) / 2;

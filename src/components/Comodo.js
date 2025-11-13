@@ -3,9 +3,9 @@ import { useState } from "react";
 
 const Comodo = ({nome, updateCampo, children}) => {
     const imagens = {
-        banheiro: "umano/bases/blocais/bbanheiro.jpg",
-        entrada: "umano/bases/blocais/bporta.jpg",
-        quarto: "umano/bases/blocais/bquarto.jpg",
+        banheiro: "umano/bases/blocais/bbanheiro.png",
+        entrada: "umano/bases/blocais/bporta.png",
+        quarto: "umano/bases/blocais/bquarto.png",
         sala: "umano/bases/blocais/bsala.png",
     };
 

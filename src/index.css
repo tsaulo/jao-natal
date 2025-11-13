@@ -1,4 +1,20 @@
+@font-face {
+  font-family: "Playfair Display";
+  font-display: swap; 
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/playfair-display-v40-latin-regular.woff2') format('woff2'),
+  url('/fonts/playfair-display-v40-latin-regular.woff') format('woff'),
+  url('/fonts/playfair-display-v40-latin-regular.ttf') format('truetype'),
+  url('/fonts/playfair-display-v40-latin-regular.eot'); 
+}
 
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/playfair-display-v40-latin-regular.eot?#iefix') format('embedded-opentype'); 
+}
 
 body {
   margin: 0;
