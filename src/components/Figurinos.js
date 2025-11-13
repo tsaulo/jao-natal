@@ -16,7 +16,7 @@ const containerRef = useRef(null);
 
     return () => clearTimeout(timer);
     
-  }, [step]);
+  },);
 
     const imagens = {
         azul: "umano/bases/bpijamas/brazul.png",

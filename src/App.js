@@ -125,13 +125,11 @@ const gerarImagem = async () => {
             if (proporcaoOriginal > proporcaoDesejada) {
                 alturaFinal = alturaDesejadaStory;
                 larguraFinal = Math.round(alturaFinal * proporcaoOriginal);
-                offsetX = (larguraFinal - larguraDesejadaStory) / 2; 
             } 
             
             else {
                 larguraFinal = larguraDesejadaStory;
                 alturaFinal = Math.round(larguraFinal / proporcaoOriginal);
-                offsetY = (alturaFinal - alturaDesejadaStory) / 2; 
             }
             
             
