@@ -1,5 +1,5 @@
 import "./Nome.css";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 
 const containerRef = useRef(null);
 

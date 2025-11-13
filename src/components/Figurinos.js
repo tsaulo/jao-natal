@@ -1,5 +1,5 @@
 import "./Figurinos.css";
-import { useState, useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const containerRef = useRef(null);
 
