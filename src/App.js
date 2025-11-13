@@ -14,6 +14,7 @@ import Final from './components/Final';
 
 
 function App() {
+  const capturaRef = useRef(null);
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     nome: "",
@@ -34,11 +35,18 @@ function App() {
 
   const handleNext = () => {
     setFade("fade-exit-active");
+
+    window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "instant"
+    });
     
     setTimeout(() => {
         setStep(prev => prev + 1);
          setFade("fade-enter-active");
     }, 500);
+
 
   }
   const handleBack = () => {
@@ -51,11 +59,10 @@ function App() {
 
   }
 
-const createAngledStripedPattern = (ctx, angle, color1, length1, color2, length2) => {
+const createHorizontalStripedPattern = (ctx, color1, length1, color2, length2) => {
     const repeatLength = length1 + length2;
-
     const basePatternCanvas = document.createElement('canvas');
-    basePatternCanvas.width = repeatLength;
+    basePatternCanvas.width = repeatLength; 
     basePatternCanvas.height = repeatLength;
     const bpc_ctx = basePatternCanvas.getContext('2d');
 
@@ -64,28 +71,9 @@ const createAngledStripedPattern = (ctx, angle, color1, length1, color2, length2
     bpc_ctx.fillStyle = color2;
     bpc_ctx.fillRect(0, length1, repeatLength, length2);
 
-    const diagonal = Math.sqrt(Math.pow(repeatLength, 2) * 2);
-    const rotatedSize = Math.ceil(diagonal * 2);
-
-    const rotatedPatternCanvas = document.createElement('canvas');
-    rotatedPatternCanvas.width = rotatedSize;
-    rotatedPatternCanvas.height = rotatedSize;
-    const rpc_ctx = rotatedPatternCanvas.getContext('2d');
-
-    rpc_ctx.translate(rotatedSize / 2, rotatedSize / 2);
-    rpc_ctx.rotate(angle * Math.PI / 180);
-    rpc_ctx.translate(-rotatedSize / 2, -rotatedSize / 2);
-
-    for (let x = -rotatedSize; x < rotatedSize; x += repeatLength) {
-        for (let y = -rotatedSize; y < rotatedSize; y += repeatLength) {
-            rpc_ctx.drawImage(basePatternCanvas, x, y);
-        }
-    }
-
-    const pattern = ctx.createPattern(rotatedPatternCanvas, 'repeat');
-
+    const pattern = ctx.createPattern(basePatternCanvas, 'repeat');
     return pattern;
-}
+};
 
 const gerarImagem = async () => {
 
@@ -95,80 +83,63 @@ const gerarImagem = async () => {
         await new Promise(r => setTimeout(r, 500)); 
 
         const elemento = document.getElementById("captura");
-
+        const isMobile = window.innerWidth <= 1024;
+        let link;
+        
         const pngDataUrl = await domToPng(elemento, {
-            scale: window.devicePixelRatio * 1.5, 
+            scale: window.devicePixelRatio * 1.5,
             fetchExternalStyles: true,
         });
 
-        const isMobile = window.innerWidth <= 1024;
-        let link;
- 
-
         if (isMobile) {
+            
             const img = new Image();
             img.src = pngDataUrl;
             await new Promise(resolve => img.onload = resolve);
 
             const larguraOriginal = img.naturalWidth;
             const alturaOriginal = img.naturalHeight;
-
-         
             const larguraDesejadaStory = 1080;
             const alturaDesejadaStory = 1920;
-            const proporcaoDesejada = larguraDesejadaStory / alturaDesejadaStory; 
 
             const proporcaoOriginal = larguraOriginal / alturaOriginal;
+            let scaleRatio = Math.min(larguraDesejadaStory / larguraOriginal, alturaDesejadaStory / alturaOriginal);
+            let imgWidthScaled = larguraOriginal * scaleRatio;
+            let imgHeightScaled = alturaOriginal * scaleRatio;
 
-            let larguraFinal, alturaFinal;
+            let xPos = (larguraDesejadaStory - imgWidthScaled) / 2;
+            let yPos = (alturaDesejadaStory - imgHeightScaled) / 2;
 
-            if (proporcaoOriginal > proporcaoDesejada) {
-                alturaFinal = alturaDesejadaStory;
-                larguraFinal = Math.round(alturaFinal * proporcaoOriginal);
-            } 
-            
-            else {
-                larguraFinal = larguraDesejadaStory;
-                alturaFinal = Math.round(larguraFinal / proporcaoOriginal);
-            }
-            
-            
             const canvasFinalStory = document.createElement("canvas");
             canvasFinalStory.width = larguraDesejadaStory;
             canvasFinalStory.height = alturaDesejadaStory;
             const ctxFinalStory = canvasFinalStory.getContext("2d");
 
-            const pattern = createAngledStripedPattern(
+
+            ctxFinalStory.save(); 
+
+            ctxFinalStory.translate(larguraDesejadaStory / 2, alturaDesejadaStory / 2);
+            ctxFinalStory.rotate(40 * Math.PI / 180); 
+            ctxFinalStory.translate(-larguraDesejadaStory / 2, -alturaDesejadaStory / 2);
+
+            const pattern = createHorizontalStripedPattern(
                 ctxFinalStory, 
-                40, 
-                '#ddd6c0', 100, 
+                '#ddd6c0', 100,
                 '#8D1023', 100 
             );
 
             ctxFinalStory.fillStyle = pattern;
-
             ctxFinalStory.fillRect(0, 0, larguraDesejadaStory, alturaDesejadaStory);
-          
-            let scaleRatio = Math.min(larguraDesejadaStory / larguraOriginal, alturaDesejadaStory / alturaOriginal);
-            let imgWidthScaled = larguraOriginal * scaleRatio;
-            let imgHeightScaled = alturaOriginal * scaleRatio;
-
             
-            let xPos = (larguraDesejadaStory - imgWidthScaled) / 2;
-            let yPos = (alturaDesejadaStory - imgHeightScaled) / 2;
+            ctxFinalStory.restore(); 
 
-          
             ctxFinalStory.drawImage(img, xPos, yPos, imgWidthScaled, imgHeightScaled);
 
             link = document.createElement("a");
             link.download = "jao-natal-story.png";
             link.href = canvasFinalStory.toDataURL("image/png");
 
-        } 
-      
-        
-        else {
-            
+        } else {
             const img = new Image();
             img.src = pngDataUrl;
 
@@ -181,7 +152,7 @@ const gerarImagem = async () => {
             const ctxOriginal = canvasOriginal.getContext("2d");
             ctxOriginal.drawImage(img, 0, 0);
 
-            const larguraFinal = canvasOriginal.width * 0.215; 
+            const larguraFinal = canvasOriginal.width * 0.25; 
             const alturaFinal = canvasOriginal.height;
 
             const inicioX = (canvasOriginal.width - larguraFinal) / 2;

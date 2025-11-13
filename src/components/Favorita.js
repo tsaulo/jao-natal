@@ -1,21 +1,7 @@
 import "./Favorita.css";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 
 const Favorita = ({updateCampo, children}) => {
-
-const containerRef = useRef(null);
-    useEffect(() => {
-
-    const timer = setTimeout(() => {
-        if (containerRef.current) {
-
-            containerRef.current.scrollTop = 0;
-        }
-    }, 100); 
-
-    return () => clearTimeout(timer);
-    
-  });
 
     const imagens = {
         acontece: "umano/bases/bmusicas/bacontece.png",

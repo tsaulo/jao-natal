@@ -1,22 +1,9 @@
 import "./Comodo.css";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 
 
 const Comodo = ({nome, updateCampo, children}) => {
 
-const containerRef = useRef(null);
-    useEffect(() => {
-
-    const timer = setTimeout(() => {
-        if (containerRef.current) {
-
-            containerRef.current.scrollTop = 0;
-        }
-    }, 100); 
-
-    return () => clearTimeout(timer);
-    
-  });
 
     const imagens = {
         banheiro: "umano/bases/blocais/bbanheiro.png",

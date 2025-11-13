@@ -1,21 +1,6 @@
 import "./Final.css";
-import { useRef, useEffect} from "react";
 
 const Final = ( { dadoNome, dadoComodo, dadoMusica, dadoPijama, dadoEstado, children } ) => {
-
-    const containerRef = useRef(null);
-    useEffect(() => {
-
-    const timer = setTimeout(() => {
-        if (containerRef.current) {
-
-            containerRef.current.scrollTop = 0;
-        }
-    }, 100); 
-
-    return () => clearTimeout(timer);
-    
-  });
 
     const polaroidsComodo = {
         banheiro: "umano/locais/banheiro.png",
@@ -72,7 +57,7 @@ const Final = ( { dadoNome, dadoComodo, dadoMusica, dadoPijama, dadoEstado, chil
     
 
     return(
-         <div ref={containerRef} className="dentrofinal">
+         <div className="dentrofinal">
             <div className="campofim">
             <div>
                 <h2>Para <i>{dadoNome}</i>,</h2>

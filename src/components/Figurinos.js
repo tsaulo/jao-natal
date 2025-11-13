@@ -1,22 +1,9 @@
 import "./Figurinos.css";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 
 const Figurinos = ({updateCampo, children}) => {
 
     
-const containerRef = useRef(null);
-    useEffect(() => {
-
-    const timer = setTimeout(() => {
-        if (containerRef.current) {
-
-            containerRef.current.scrollTop = 0;
-        }
-    }, 100); 
-
-    return () => clearTimeout(timer);
-    
-  },);
 
     const imagens = {
         azul: "umano/bases/bpijamas/brazul.png",
