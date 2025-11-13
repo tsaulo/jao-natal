@@ -3,7 +3,9 @@ import { useState, useEffect, useRef } from "react";
 
 const containerRef = useRef(null);
 
-useEffect(() => {
+const Comodo = ({nome, updateCampo, children}) => {
+
+    useEffect(() => {
 
     const timer = setTimeout(() => {
         if (containerRef.current) {
@@ -15,8 +17,7 @@ useEffect(() => {
     return () => clearTimeout(timer);
     
   });
-
-const Comodo = ({nome, updateCampo, children}) => {
+  
     const imagens = {
         banheiro: "umano/bases/blocais/bbanheiro.png",
         entrada: "umano/bases/blocais/bporta.png",

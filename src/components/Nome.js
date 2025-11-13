@@ -3,7 +3,9 @@ import { useRef, useEffect } from "react";
 
 const containerRef = useRef(null);
 
-useEffect(() => {
+const Nome = ( { dado, updateCampo } ) => {
+
+    useEffect(() => {
 
     const timer = setTimeout(() => {
         if (containerRef.current) {
@@ -15,8 +17,7 @@ useEffect(() => {
     return () => clearTimeout(timer);
     
   });
-
-const Nome = ( { dado, updateCampo } ) => {
+  
     return(
         <div>
             <div ref={containerRef} className="textao">

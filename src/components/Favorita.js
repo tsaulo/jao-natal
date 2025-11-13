@@ -3,7 +3,8 @@ import { useState, useEffect, useRef } from "react";
 
 const containerRef = useRef(null);
 
-useEffect(() => {
+const Favorita = ({updateCampo, children}) => {
+    useEffect(() => {
 
     const timer = setTimeout(() => {
         if (containerRef.current) {
@@ -16,7 +17,6 @@ useEffect(() => {
     
   });
 
-const Favorita = ({updateCampo, children}) => {
     const imagens = {
         acontece: "umano/bases/bmusicas/bacontece.png",
         alinhamento: "umano/bases/bmusicas/balinhamento.png",

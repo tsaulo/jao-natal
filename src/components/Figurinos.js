@@ -3,7 +3,8 @@ import { useState, useEffect, useRef } from "react";
 
 const containerRef = useRef(null);
 
-useEffect(() => {
+const Figurinos = ({updateCampo, children}) => {
+    useEffect(() => {
 
     const timer = setTimeout(() => {
         if (containerRef.current) {
@@ -14,9 +15,8 @@ useEffect(() => {
 
     return () => clearTimeout(timer);
     
-  });
+  }, [step]);
 
-const Figurinos = ({updateCampo, children}) => {
     const imagens = {
         azul: "umano/bases/bpijamas/brazul.png",
         rosa: "umano/bases/bpijamas/brosa.png",

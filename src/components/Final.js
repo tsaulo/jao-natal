@@ -3,7 +3,8 @@ import { useRef, useEffect} from "react";
 
 const containerRef = useRef(null);
 
-useEffect(() => {
+const Final = ( { dadoNome, dadoComodo, dadoMusica, dadoPijama, dadoEstado, children } ) => {
+    useEffect(() => {
 
     const timer = setTimeout(() => {
         if (containerRef.current) {
@@ -16,7 +17,6 @@ useEffect(() => {
     
   });
 
-const Final = ( { dadoNome, dadoComodo, dadoMusica, dadoPijama, dadoEstado, children } ) => {
     const polaroidsComodo = {
         banheiro: "umano/locais/banheiro.png",
         entrada: "umano/locais/entrada.png",
