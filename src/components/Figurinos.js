@@ -3,8 +3,6 @@ import { useState } from "react";
 
 const Figurinos = ({updateCampo, children}) => {
 
-    
-
     const imagens = {
         azul: "umano/bases/bpijamas/brazul.png",
         rosa: "umano/bases/bpijamas/brosa.png",
@@ -23,7 +21,7 @@ const Figurinos = ({updateCampo, children}) => {
     };
 
     return(
-        <div ref={containerRef} className="dentro">
+        <div className="dentro">
             <div className="campofig">
             <h2>...com figurinos <i>especiais</i>...</h2>
             <p>Numa turnê em que o palco é a casa do Jão, nada mais justo do que ele usar roupas confortáveis como... pijamas!</p>

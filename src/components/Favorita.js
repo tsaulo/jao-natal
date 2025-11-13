@@ -41,7 +41,7 @@ const Favorita = ({updateCampo, children}) => {
     };
 
     return(
-        <div ref={containerRef} className="dentrofav">
+        <div className="dentrofav">
             <div className="campofav">
             <h2>Uma turnê intimista...</h2>
             <p>A setlist do Especial de Natal foi feita para ser <i>intimista</i>, com músicas diferentes da <strong>SUPERTURNÊ</strong>.</p>

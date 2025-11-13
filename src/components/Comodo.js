@@ -24,7 +24,7 @@ const Comodo = ({nome, updateCampo, children}) => {
     };
 
     return(
-        <div ref={containerRef} className="dentrocom">
+        <div className="dentrocom">
             <div className="campo">
             <h2>Olá, <i>{nome}</i>! A casa é sua!</h2>
             <p>Falando em casa, um dos pontos mais marcantes da turnê foi a estrutura do palco em formato de casa.</p>
