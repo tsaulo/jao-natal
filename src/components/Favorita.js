@@ -1,5 +1,5 @@
 import "./Favorita.css";
-import { useState, useState, useRef } from "react";
+import { useState, useRef } from "react";
 
 const containerRef = useRef(null);
 
