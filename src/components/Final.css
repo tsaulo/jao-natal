@@ -35,8 +35,7 @@
 
 @keyframes cheguei{
     0%{
-        opacity: 1;
-        transform: translateX(-40vw) rotate(0deg);
+        opacity: 0;
     }
 
     100%{
@@ -47,7 +46,7 @@
 @keyframes polaroidEnter {
   0% {
     opacity: 1;
-    transform: translateX(-40vw);
+    transform: translateX(-40vw) rotate(0deg);
   }
   100% {
     opacity: 1;
