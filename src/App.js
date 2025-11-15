@@ -72,7 +72,7 @@ const gerarImagem = async () => {
         await new Promise(r => setTimeout(r, 500)); 
 
         const elemento = document.getElementById("captura");
-        const polaroidsDiv = elemento.querySelector(".polaroids-container"); 
+        const polaroidsDiv = document.querySelector(".campofim"); 
         const isMobile = window.innerWidth <= 1024; 
         let link;
         
