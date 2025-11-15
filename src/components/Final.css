@@ -25,7 +25,7 @@
 
 .polaroid3{
     animation-delay: 2.25s;
-    transform: translate(1vw, -4vh)rotate(-2deg);
+    transform: translate(0.5vw, -4vh)rotate(-2deg);
 }
 
 .polaroid4{
@@ -35,7 +35,8 @@
 
 @keyframes cheguei{
     0%{
-        opacity: 0;
+        opacity: 1;
+        transform: translateX(-40vw) rotate(0deg);
     }
 
     100%{
