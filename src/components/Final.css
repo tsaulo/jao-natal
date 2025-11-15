@@ -9,8 +9,9 @@
 .polaroid {
   max-height: 16vh;
   margin-top: 3vh;
-
+  opacity: 0;
 }
+
 
 .polaroid1 {
   animation: polaroidEnter1 1s ease-out forwards;
@@ -19,8 +20,8 @@
 
 @keyframes polaroidEnter1 {
   0% {
-
-    transform: translate(-40vw, -3vh) rotate(0deg);
+    opacity: 0;
+    transform: translate(-40vw, 3vh) rotate(0deg);
   }
   100% {
     opacity: 1;
@@ -35,12 +36,12 @@
 
 @keyframes polaroidEnter2 {
   0% {
-
+    opacity: 0;
     transform: translate(-40vw, 0vh) rotate(0deg);
   }
   100% {
     opacity: 1;
-    transform: translate(8vw, -2vh) rotate(-4deg);
+    transform: translate(7vw, 0vh) rotate(-4deg);
   }
 }
 
@@ -51,8 +52,8 @@
 
 @keyframes polaroidEnter3 {
   0% {
-
-    transform: translate(-40vw, 0vh) rotate(0deg);
+    opacity: 0;
+    transform: translate(-40vw, -4vh) rotate(0deg);
   }
   100% {
     opacity: 1;
@@ -67,8 +68,8 @@
 
 @keyframes polaroidEnter4 {
   0% {
-
-    transform: translate(-40vw, 0vh) rotate(0deg);
+    opacity: 0;
+    transform: translate(-40vw, -6vh) rotate(0deg);
   }
   100% {
     opacity: 1;
@@ -159,7 +160,7 @@
     }
 
     .polaroid2{
-        transform: translate(30vw, -2vh) rotate(-4deg);
+        transform: translate(32vw, 0vh) rotate(-4deg);
     }
 
     .polaroid3{
@@ -172,7 +173,7 @@
 
      @keyframes polaroidEnter1 {
     0% {
-        
+      opacity: 0;
       transform: translate(-40vw, 4vh) rotate(0deg);
     }
     100% {
@@ -183,7 +184,7 @@
 
   @keyframes polaroidEnter2 {
     0% {
-        
+      opacity: 0;
       transform: translate(-40vw, 0vh) rotate(0deg);
     }
     100% {
@@ -194,7 +195,7 @@
 
   @keyframes polaroidEnter3 {
     0% {
-        
+      opacity: 0;
       transform: translate(-40vw, -4vh) rotate(0deg);
     }
     100% {
@@ -205,7 +206,7 @@
 
   @keyframes polaroidEnter4 {
     0% {
-        
+      opacity: 0;
       transform: translate(-40vw, -6vh) rotate(0deg);
     }
     100% {
