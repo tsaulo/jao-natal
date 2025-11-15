@@ -89,7 +89,7 @@ const gerarImagem = async () => {
         const larguraDesejadaStory = 1080;
         const alturaDesejadaStory = 1920;
 
-        let larguraOrigem, alturaOrigem;
+        let larguraOrigem, alturaOrigem, imgToDraw;
 
         if (isMobile) {
             larguraOrigem = img.naturalWidth; 
@@ -102,7 +102,7 @@ const gerarImagem = async () => {
 
             const canvasCrop = document.createElement("canvas");
 
-            canvasCrop.width = img.naturalWidth;
+            canvasCrop.width = larguraOrigem;
 
             canvasCrop.height = alturaOrigem;
 
