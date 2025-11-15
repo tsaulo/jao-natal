@@ -72,6 +72,7 @@ const gerarImagem = async () => {
         await new Promise(r => setTimeout(r, 500)); 
 
         const elemento = document.getElementById("captura");
+        const polaroidsDiv = document.getElementById("final"); 
         const isMobile = window.innerWidth <= 1024; 
         let link;
         
@@ -84,15 +85,23 @@ const gerarImagem = async () => {
         img.src = pngDataUrl;
         await new Promise(resolve => img.onload = resolve);
 
-        const larguraOriginal = img.naturalWidth;
-        const alturaOriginal = img.naturalHeight;
-        
         const larguraDesejadaStory = 1080;
         const alturaDesejadaStory = 1920;
 
-        let scaleRatio = Math.min(larguraDesejadaStory / larguraOriginal, alturaDesejadaStory / alturaOriginal);
-        let imgWidthScaled = larguraOriginal * scaleRatio;
-        let imgHeightScaled = alturaOriginal * scaleRatio;
+        let larguraOrigem, alturaOrigem;
+
+        if (isMobile) {
+            larguraOrigem = img.naturalWidth; 
+            alturaOrigem = img.naturalHeight;
+        } else {
+          
+            larguraOrigem = polaroidsDiv ? polaroidsDiv.offsetWidth : elemento.offsetWidth; 
+            alturaOrigem = window.innerHeight; 
+        }
+
+        let scaleRatio = Math.min(larguraDesejadaStory / larguraOrigem, alturaDesejadaStory / alturaOrigem);
+        let imgWidthScaled = larguraOrigem * scaleRatio;
+        let imgHeightScaled = alturaOrigem * scaleRatio;
 
         let xPos = (larguraDesejadaStory - imgWidthScaled) / 2;
         let yPos = (alturaDesejadaStory - imgHeightScaled) / 2;
@@ -101,7 +110,6 @@ const gerarImagem = async () => {
         canvasFinalStory.width = larguraDesejadaStory;
         canvasFinalStory.height = alturaDesejadaStory;
         const ctxFinalStory = canvasFinalStory.getContext("2d");
-
 
 
         const backgroundImage = new Image();
