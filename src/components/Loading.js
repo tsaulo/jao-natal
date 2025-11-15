@@ -4,7 +4,8 @@ const [largura, setLargura] = useState("60%");
 const altura = "10%";
 const listras = "umano/bases/bfundos/padrao.png";
 
-useEffect(() => {
+const Loading = ({progresso}) => {
+    useEffect(() => {
     const verificarLargura = () => {
         if (window.innerWidth <= 1024) {
             setLargura("90%");
@@ -19,7 +20,6 @@ useEffect(() => {
     return () => window.removeEventListener("resize", verificarLargura);
 }, []);
 
-const Loading = ({progresso}) => {
     const canvasRef = useRef(null);
     const containerRef = useRef(null);
     const [padrao, setPadrao] = useState(null);
