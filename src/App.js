@@ -159,7 +159,7 @@ function App() {
       setProgressoCarregamento(progresso);
 
       if (carregados === totalCarregar) { 
-      setFadeCarregamento(true);
+      setTimeout(() => setFadeCarregamento(true), 1000);
       }
 
     }
