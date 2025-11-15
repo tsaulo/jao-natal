@@ -96,7 +96,7 @@ const gerarImagem = async () => {
             alturaOrigem = img.naturalHeight;
         } else {
           
-            larguraOrigem = polaroidsDiv.width; 
+            larguraOrigem = polaroidsDiv.getBoundingClientRect().width; 
             alturaOrigem = window.innerHeight; 
         }
 
