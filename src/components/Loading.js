@@ -1,10 +1,11 @@
 import React, {useRef, useEffect, useState} from 'react';
 
-const [largura, setLargura] = useState("60%");
 const altura = "10%";
 const listras = "umano/bases/bfundos/padrao.png";
 
 const Loading = ({progresso}) => {
+    const [largura, setLargura] = useState("60%");
+    
     useEffect(() => {
     const verificarLargura = () => {
         if (window.innerWidth <= 1024) {
