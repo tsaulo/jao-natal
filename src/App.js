@@ -158,9 +158,10 @@ function App() {
       const progresso = Math.min(100, Math.round((carregados/totalCarregar) * 100));
       setProgressoCarregamento(progresso);
 
-      if (carregados = totalCarregar) {
-        setTimeout(() => setCarregando(true), 300);
+      if (carregados === totalCarregar) {
+      setTimeout(() => setCarregando(false), 300);
       }
+
     }
 
     Promise.all(imagensCarregar.map(promise => promise.then(handleCarregar))).catch(error => {

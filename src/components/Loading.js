@@ -54,17 +54,20 @@ const Loading = ({progresso}) => {
 
         const preenchido = (width * progresso) / 100;
 
-        // Fundo (área não preenchida)
         ctx.fillStyle = "#c4c4c4ff";
         ctx.fillRect(0, 0, width, height);
-
-        // Preenchimento do progresso com o padrão
+        
         const pattern = ctx.createPattern(padrao, 'repeat');
         
         ctx.fillStyle = pattern;
     
+        ctx.save();
         ctx.beginPath();
         ctx.rect(0, 0, preenchido, height);
+        ctx.clip();
+        ctx.fillRect(0, 0, width, height);
+        ctx.restore();
+
         ctx.clip(); 
 
         ctx.fillRect(0, 0, width, height);
