@@ -12,7 +12,7 @@ import Figurinos from './components/Figurinos';
 import Posicoes from './components/Posicoes';
 import Final from './components/Final';
 import { preload } from 'react-dom';
-import Loading from '.components/Loading';
+import Loading from './components/Loading';
 
 
 function App() {
@@ -320,8 +320,8 @@ if (carregando) {
     <div className="tela7">
       <Loading></Loading>
     </div>
-  )
-}
+  );
+};
 
   return (
     <div id="captura" className={`tela tela${step}`}>
