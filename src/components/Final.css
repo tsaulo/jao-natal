@@ -14,22 +14,22 @@
 }
 
 .polaroid1{
-    animation-delay: 0.75s;
+    animation-delay: 0.5s;
     transform: translateX(0.5vw) rotate(6deg);
 }
 
 .polaroid2{
-    animation-delay: 1.5s;
+    animation-delay: 1s;
     transform: translate(6.5vw, -2vh) rotate(-4deg);
 }
 
 .polaroid3{
-    animation-delay: 2.25s;
+    animation-delay: 1.5s;
     transform: translate(0.5vw, -4vh)rotate(-2deg);
 }
 
 .polaroid4{
-    animation-delay: 3s;
+    animation-delay: 2s;
     transform: translate(6vw, -6vh) rotate(8deg);
 }
 
@@ -46,7 +46,7 @@
 @keyframes polaroidEnter {
   0% {
     opacity: 1;
-    transform: translateX(-40vw) rotate(0deg);
+    transform: translate(-40vw, -3vh);
   }
   100% {
     opacity: 1;

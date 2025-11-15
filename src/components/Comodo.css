@@ -51,7 +51,7 @@ option{
 @media screen and (max-width: 1024px){
     .campo{
     width: 76vw;
-    margin-top: 8vh;
+    margin-top: 5vh;
     padding: 0 5vw ;
 }
 }
