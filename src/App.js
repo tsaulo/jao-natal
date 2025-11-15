@@ -12,7 +12,7 @@ import Figurinos from './components/Figurinos';
 import Posicoes from './components/Posicoes';
 import Final from './components/Final';
 import { preload } from 'react-dom';
-import Loading from './components/Loading';
+import Loading from './components/Loading'
 
 
 function App() {
@@ -25,29 +25,17 @@ function App() {
     });
   };
 
-const preloadVideo = (src) => {
-  return new Promise((resolve, reject) => {
-    const video = document.createElement("video");
-    video.preload = "auto";
-    video.src = src;
-
-    const handleResolve = () => {
+  const preloadVideo = (src) => {
+    return new Promise((resolve, reject) => {
+      const video = document.createElement("video");
+      video.preload = "auto";
+      video.src = src;
+      video.addEventListener("canplaythrough", resolve);
+      video.addEventListener("error", reject);
+      document.body.appendChild(video);
       video.remove();
-      resolve(); 
-    };
-
-    const handleError = (e) => {
-      console.warn(`Falha (ignorada) ao carregar vídeo: ${src}`, e);
-      video.remove();
-      resolve(); 
-    };
-
-    video.addEventListener("canplaythrough", handleResolve, { once: true });
-    video.addEventListener("error", handleError, { once: true });
-    
-    document.body.appendChild(video);
-  });
-};
+    });
+  };
 
   const [carregando, setCarregando] = useState(true);
   const [progressoCarregamento, setProgressoCarregamento] = useState(0);
@@ -170,8 +158,8 @@ const preloadVideo = (src) => {
       const progresso = Math.min(100, Math.round((carregados/totalCarregar) * 100));
       setProgressoCarregamento(progresso);
 
-      if (carregados === totalCarregar) {
-        setCarregando(true);
+      if (carregados = totalCarregar) {
+        setTimeout(() => setCarregando(true), 300);
       }
     }
 
@@ -328,12 +316,8 @@ const gerarImagem = async () => {
 };
 
 if (carregando) {
-  return (
-    <div className="tela7">
-      <Loading progresso={progressoCarregamento}></Loading>
-    </div>
-  );
-};
+  return <Loading progresso={progressoCarregamento}></Loading>;
+}
 
   return (
     <div id="captura" className={`tela tela${step}`}>
