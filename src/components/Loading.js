@@ -36,63 +36,50 @@ const Loading = ({progresso}) => {
     }, []);
 
     useEffect(() => {
-        const atualizarDimensoes = () => {
-            if (containerRef.current) {
-                setDimensoes({
-                    width: containerRef.current.offsetWidth,
-                    height: containerRef.current.offsetHeight
-                });
-            }
-        };
+  const atualizarDimensoes = () => {
+    if (containerRef.current) {
+      setDimensoes({
+        width: containerRef.current.offsetWidth,
+        height: containerRef.current.offsetHeight
+      });
+    }
+  };
 
-        const observando = new ResizeObserver(atualizarDimensoes);
-        if(containerRef.current){
-            observando.observe(containerRef.current);
-        }
+  atualizarDimensoes();
+  window.addEventListener("resize", atualizarDimensoes);
 
-        return () => {
-            if (containerRef.current) {
-                observando.unobserve(containerRef.current);
-            }
-        };
-    }, []);
+  return () => window.removeEventListener("resize", atualizarDimensoes);
+}, []);
 
     useEffect(() => {
-        const {width, height} = dimensoes;
+    const {width, height} = dimensoes;
 
-        if (!padrao || width === 0 || height === 0) return;
+    if (!padrao || width === 0 || height === 0) return;
 
-        const canvas = canvasRef.current;
-        const ctx = canvas.getContext("2d");
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
 
-        canvas.width = width;
-        canvas.height = height;
+    canvas.width = width;
+    canvas.height = height;
 
-        ctx.clearRect(0, 0, width, height);
+    ctx.clearRect(0, 0, width, height);
 
-        const preenchido = (width * progresso) / 100;
+    const preenchido = (width * progresso) / 100;
 
-        ctx.fillStyle = "#c4c4c4ff";
-        ctx.fillRect(0, 0, width, height);
-        
-        const pattern = ctx.createPattern(padrao, 'repeat');
-        
-        ctx.fillStyle = pattern;
-    
-        ctx.save();
-        ctx.beginPath();
-        ctx.rect(0, 0, preenchido, height);
-        ctx.clip();
-        ctx.fillRect(0, 0, width, height);
-        ctx.restore();
+    ctx.fillStyle = "#c4c4c4ff";
+    ctx.fillRect(0, 0, width, height);
 
-        ctx.clip(); 
+    const pattern = ctx.createPattern(padrao, "repeat");
+    ctx.fillStyle = pattern;
 
-        ctx.fillRect(0, 0, width, height);
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(0, 0, preenchido, height);
+    ctx.clip();
+    ctx.fillRect(0, 0, width, height);
+    ctx.restore();
+}, [dimensoes, padrao, progresso]);
 
-        ctx.restore(); 
-
-    });
     
     return (
         <div ref={containerRef} style={{ width: largura, height: altura }}>
