@@ -1,8 +1,23 @@
 import React, {useRef, useEffect, useState} from 'react';
 
-const largura = "90%";
+const [largura, setLargura] = useState("60%");
 const altura = "10%";
 const listras = "umano/bases/bfundos/padrao.png";
+
+useEffect(() => {
+    const verificarLargura = () => {
+        if (window.innerWidth <= 1024) {
+            setLargura("90%");
+        } else {
+            setLargura("60%");
+        }
+    };
+
+    verificarLargura();
+    window.addEventListener("resize", verificarLargura);
+
+    return () => window.removeEventListener("resize", verificarLargura);
+}, []);
 
 const Loading = ({progresso}) => {
     const canvasRef = useRef(null);
