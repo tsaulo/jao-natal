@@ -12,6 +12,7 @@ import Figurinos from './components/Figurinos';
 import Posicoes from './components/Posicoes';
 import Final from './components/Final';
 import { preload } from 'react-dom';
+import Loading from '.components/Loading';
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
   };
 
   const [carregando, setCarregando] = useState(true);
+  const [progressoCarregamento, setProgressoCarregamento] = useState(0);
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     nome: "",
@@ -148,9 +150,20 @@ function App() {
       preloadImage("umano/pijamas/verde.png"),
     ];
 
-    Promise.all(imagensCarregar).then(() => {
-      setCarregando(false);
-    }).catch(error => {
+    let carregados = 0;
+    const totalCarregar = imagensCarregar.length;
+
+    const handleCarregar = () => {
+      carregados++;
+      const progresso = Math.min(100, Math.round((carregados/totalCarregar) * 100));
+      setProgressoCarregamento(progresso);
+
+      if (carregados = totalCarregar) {
+        setTimeout(() => setCarregando(true), 300);
+      }
+    }
+
+    Promise.all(imagensCarregar.map(promise => promise.then(handleCarregar))).catch(error => {
       console.error("Erro ao carregar recursos:", error);
       setCarregando(false);
     });
@@ -303,9 +316,11 @@ const gerarImagem = async () => {
 };
 
 if (carregando) {
-  return(
-    <div><p>ta carregando carai</p></div>
-  );
+  return (
+    <div className="tela7">
+      <Loading></Loading>
+    </div>
+  )
 }
 
   return (
