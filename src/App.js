@@ -319,7 +319,7 @@ const gerarImagem = async () => {
 if (carregando) {
   return (
     <div className="tela tela1">
-          <div className="container container7">  <Loading progresso={progressoCarregamento}/></div>
+          <div className="container container7" style={{display:"flex", justifyContent:"center", alignContent:"center", textAlign:"center"}}>  <Loading progresso={progressoCarregamento}/><br/><p>Carregando memórias...</p></div>
         
     </div>
   
