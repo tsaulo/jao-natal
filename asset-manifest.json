@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/jao-natal/static/css/main.c9a54f94.css",
-    "main.js": "/jao-natal/static/js/main.0a30a5e1.js",
+    "main.js": "/jao-natal/static/js/main.dd4bf24f.js",
     "static/js/453.0864d35f.chunk.js": "/jao-natal/static/js/453.0864d35f.chunk.js",
     "static/media/jaofinal.png": "/jao-natal/static/media/jaofinal.ae08a718c19fd9956f8f.png",
     "static/media/playfair-display-v40-latin-regular.woff2": "/jao-natal/static/media/playfair-display-v40-latin-regular.b029bd8deea1857dca78.woff2",
     "index.html": "/jao-natal/index.html",
     "main.c9a54f94.css.map": "/jao-natal/static/css/main.c9a54f94.css.map",
-    "main.0a30a5e1.js.map": "/jao-natal/static/js/main.0a30a5e1.js.map",
+    "main.dd4bf24f.js.map": "/jao-natal/static/js/main.dd4bf24f.js.map",
     "453.0864d35f.chunk.js.map": "/jao-natal/static/js/453.0864d35f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.c9a54f94.css",
-    "static/js/main.0a30a5e1.js"
+    "static/js/main.dd4bf24f.js"
   ]
 }
