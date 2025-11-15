@@ -316,7 +316,6 @@ const gerarImagem = async () => {
     }
 };
 
-
   return (
     <div id="captura" className={`tela tela${step}`}>
       <header className="header"><Titulo step={step}/><br></br></header>
