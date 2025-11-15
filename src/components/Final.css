@@ -6,32 +6,76 @@
     overflow: hidden;
 }
 
-.polaroid{
-    max-height: 16vh;
-    margin-top: 3vh;
+.polaroid {
+  max-height: 16vh;
+  margin-top: 3vh;
+  opacity: 0;
+}
+
+.polaroid1 {
+  animation: polaroidEnter1 1s ease-out forwards;
+  animation-delay: 1s;
+}
+
+@keyframes polaroidEnter1 {
+  0% {
     opacity: 0;
-    animation: polaroidEnter 1s ease-out forwards;
+    transform: translate(-40vw, -3vh) rotate(0deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0.5vw, 3vh) rotate(6deg);
+  }
 }
 
-.polaroid1{
-    animation-delay: 1s;
-    transform: translateX(0.5vw) rotate(6deg);
+.polaroid2 {
+  animation: polaroidEnter2 1s ease-out forwards;
+  animation-delay: 1.5s;
 }
 
-.polaroid2{
-    animation-delay: 1.5s;
+@keyframes polaroidEnter2 {
+  0% {
+    opacity: 0;
+    transform: translate(-40vw, 0vh) rotate(0deg);
+  }
+  100% {
+    opacity: 1;
     transform: translate(6.5vw, -2vh) rotate(-4deg);
+  }
 }
 
-.polaroid3{
-    animation-delay: 2s;
-    transform: translate(0.5vw, -4vh)rotate(-2deg);
+.polaroid3 {
+  animation: polaroidEnter3 1s ease-out forwards;
+  animation-delay: 2s;
 }
 
-.polaroid4{
-    animation-delay: 2.5s;
+@keyframes polaroidEnter3 {
+  0% {
+    opacity: 0;
+    transform: translate(-40vw, 0vh) rotate(0deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0.5vw, -4vh) rotate(-2deg);
+  }
+}
+
+.polaroid4 {
+  animation: polaroidEnter4 1s ease-out forwards;
+  animation-delay: 2.5s;
+}
+
+@keyframes polaroidEnter4 {
+  0% {
+    opacity: 0;
+    transform: translate(-40vw, 0vh) rotate(0deg);
+  }
+  100% {
+    opacity: 1;
     transform: translate(6vw, -6vh) rotate(8deg);
+  }
 }
+
 
 @keyframes cheguei{
     0%{
@@ -134,4 +178,48 @@
     .polaroid4{
         transform: translate(28vw, -6vh) rotate(8deg);
     }
+
+     @keyframes polaroidEnter1 {
+    0% {
+      opacity: 0;
+      transform: translate(-40vw, 4vh) rotate(0deg);
+    }
+    100% {
+      opacity: 1;
+      transform: translate(2vw, 4vh) rotate(6deg);
+    }
+  }
+
+  @keyframes polaroidEnter2 {
+    0% {
+      opacity: 0;
+      transform: translate(-40vw, -2vh) rotate(0deg);
+    }
+    100% {
+      opacity: 1;
+      transform: translate(30vw, -2vh) rotate(-4deg);
+    }
+  }
+
+  @keyframes polaroidEnter3 {
+    0% {
+      opacity: 0;
+      transform: translate(-40vw, -4vh) rotate(0deg);
+    }
+    100% {
+      opacity: 1;
+      transform: translate(0vw, -4vh) rotate(-2deg);
+    }
+  }
+
+  @keyframes polaroidEnter4 {
+    0% {
+      opacity: 0;
+      transform: translate(-40vw, -6vh) rotate(0deg);
+    }
+    100% {
+      opacity: 1;
+      transform: translate(28vw, -6vh) rotate(8deg);
+    }
+  }
 }
