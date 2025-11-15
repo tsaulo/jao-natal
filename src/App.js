@@ -73,7 +73,7 @@ const gerarImagem = async () => {
 
         const elemento = document.getElementById("captura");
         const final = document.getElementById("final");
-        const polaroidsDiv = final.querySelector(".campofim");
+        const polaroidsDiv = document.querySelector(".campofim");
         const isMobile = window.innerWidth <= 1024; 
         let link;
         
