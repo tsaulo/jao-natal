@@ -37,7 +37,6 @@ function App() {
     });
   };
 
-  const [carregando, setCarregando] = useState(true);
   const [progressoCarregamento, setProgressoCarregamento] = useState(0);
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
@@ -55,6 +54,7 @@ function App() {
   const [desaparecendo, setDesaparecendo] = useState(false);
   const [fade, setFade] = useState("fade-enter-active");
   const [taPrintando, setTaPrintando] = useState(false);
+  const [fadeCarregamento, setFadeCarregamento] = useState(false);
 
   useEffect(() => {
     const imagensCarregar = [
@@ -158,8 +158,8 @@ function App() {
       const progresso = Math.min(100, Math.round((carregados/totalCarregar) * 100));
       setProgressoCarregamento(progresso);
 
-      if (carregados === totalCarregar) {
-      setTimeout(() => setCarregando(false), 300);
+      if (carregados === totalCarregar) { 
+      setFadeCarregamento(true);
       }
 
     }
@@ -316,15 +316,6 @@ const gerarImagem = async () => {
     }
 };
 
-if (carregando) {
-  return (
-    <div className="tela tela1">
-          <div className="container container7" style={{display:"flex", justifyContent:"center", alignContent:"center", textAlign:"center"}}>  <Loading progresso={progressoCarregamento}/><br/><p>Carregando memórias...</p></div>
-        
-    </div>
-  
-);
-}
 
   return (
     <div id="captura" className={`tela tela${step}`}>
@@ -345,7 +336,9 @@ if (carregando) {
               setTimeout(() => handleNext(), 500);
             }}>Começar</button>
             </div>
-            
+            <div className={`containerloading ${fadeCarregamento ? "fade-out" : ""}`}>
+           <Loading progresso={progressoCarregamento}/><br/><p>Carregando memórias...</p>
+            </div>
             </main>
         )
         }{step === 2 && (
