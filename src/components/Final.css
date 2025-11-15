@@ -10,26 +10,26 @@
     max-height: 16vh;
     margin-top: 3vh;
     opacity: 0;
-    animation: polaroidEnter 1.5s ease-out forwards;
+    animation: polaroidEnter 2s ease-out forwards;
 }
 
 .polaroid1{
-    animation-delay: 0.5s;
+    animation-delay: 0.75s;
     transform: translateX(0.5vw) rotate(6deg);
 }
 
 .polaroid2{
-    animation-delay: 1s;
+    animation-delay: 1.5s;
     transform: translate(6.5vw, -2vh) rotate(-4deg);
 }
 
 .polaroid3{
-    animation-delay: 1.5s;
+    animation-delay: 2.25s;
     transform: translate(1vw, -4vh)rotate(-2deg);
 }
 
 .polaroid4{
-    animation-delay: 2s;
+    animation-delay: 3s;
     transform: translate(6vw, -6vh) rotate(8deg);
 }
 
@@ -59,7 +59,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 40vw;
+    width: 24vw;
     height: 80vh;
     background-image: url("/public/umano/bases/bfundos/jaofinal.png");
     background-size: 160%;
@@ -120,7 +120,7 @@
     }
 
     .polaroid1{
-        transform: translate(0vw, 4vh) rotate(6deg);
+        transform: translate(2vw, 4vh) rotate(6deg);
     }
 
     .polaroid2{
@@ -128,7 +128,7 @@
     }
 
     .polaroid3{
-        transform: translate(-1vw, -3vh) rotate(-2deg);
+        transform: translate(0vw, -3vh) rotate(-2deg);
     }
 
     .polaroid4{
