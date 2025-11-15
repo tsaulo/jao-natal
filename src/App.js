@@ -317,7 +317,13 @@ const gerarImagem = async () => {
 };
 
 if (carregando) {
-  return <Loading progresso={progressoCarregamento}></Loading>;
+  return (
+    <div className="tela tela1">
+          <div className="container container7">  <Loading progresso={progressoCarregamento}/></div>
+        
+    </div>
+  
+);
 }
 
   return (
