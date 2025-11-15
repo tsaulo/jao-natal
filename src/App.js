@@ -26,16 +26,31 @@ function App() {
   };
 
   const preloadVideo = (src) => {
-    return new Promise((resolve, reject) => {
-      const video = document.createElement("video");
-      video.preload = "auto";
-      video.src = src;
-      video.addEventListener("canplaythrough", resolve);
-      video.addEventListener("error", reject);
-      document.body.appendChild(video);
-      video.remove();
-    });
-  };
+  return new Promise((resolve, reject) => {
+    const video = document.createElement("video");
+    video.src = src;
+    video.preload = "metadata";
+
+    const onLoad = () => {
+      cleanup();
+      resolve();
+    };
+
+    const onError = () => {
+      cleanup();
+      resolve();  
+    };
+
+    const cleanup = () => {
+      video.removeEventListener("loadedmetadata", onLoad);
+      video.removeEventListener("error", onError);
+    };
+
+    video.addEventListener("loadedmetadata", onLoad);
+    video.addEventListener("error", onError);
+  });
+};
+
 
   const [progressoCarregamento, setProgressoCarregamento] = useState(0);
   const [step, setStep] = useState(1);
