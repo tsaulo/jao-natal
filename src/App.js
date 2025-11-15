@@ -94,6 +94,7 @@ const gerarImagem = async () => {
         if (isMobile) {
             larguraOrigem = img.naturalWidth; 
             alturaOrigem = img.naturalHeight;
+            imgToDraw = img;
         } else {
           
             larguraOrigem = polaroidsDiv.getBoundingClientRect().width; 
@@ -115,7 +116,7 @@ const gerarImagem = async () => {
               canvasCrop.width, canvasCrop.height
             );
 
-            img = canvasCrop;
+            imgToDraw = canvasCrop;
         }
 
         let scaleRatio = Math.min(larguraDesejadaStory / larguraOrigem, alturaDesejadaStory / alturaOrigem);
@@ -143,7 +144,7 @@ const gerarImagem = async () => {
             larguraDesejadaStory, alturaDesejadaStory
         );
         
-        ctxFinalStory.drawImage(img, xPos, yPos, imgWidthScaled, imgHeightScaled);
+        ctxFinalStory.drawImage(imgToDraw, xPos, yPos, imgWidthScaled, imgHeightScaled);
 
         link = document.createElement("a");
         link.download = "jao-natal.png";
