@@ -166,7 +166,7 @@ function App() {
 
     Promise.all(imagensCarregar.map(promise => promise.then(handleCarregar))).catch(error => {
       console.error("Erro ao carregar recursos:", error);
-      setCarregando(false);
+      setFadeCarregamento(true);
     });
   }, []);
 
