@@ -25,17 +25,29 @@ function App() {
     });
   };
 
-  const preloadVideo = (src) => {
-    return new Promise((resolve, reject) => {
-      const video = document.createElement("video");
-      video.preload = "auto";
-      video.src = src;
-      video.addEventListener("canplaythrough", resolve);
-      video.addEventListener("error", reject);
-      document.body.appendChild(video);
+const preloadVideo = (src) => {
+  return new Promise((resolve, reject) => {
+    const video = document.createElement("video");
+    video.preload = "auto";
+    video.src = src;
+
+    const handleResolve = () => {
       video.remove();
-    });
-  };
+      resolve(); 
+    };
+
+    const handleError = (e) => {
+      console.warn(`Falha (ignorada) ao carregar vídeo: ${src}`, e);
+      video.remove();
+      resolve(); 
+    };
+
+    video.addEventListener("canplaythrough", handleResolve, { once: true });
+    video.addEventListener("error", handleError, { once: true });
+    
+    document.body.appendChild(video);
+  });
+};
 
   const [carregando, setCarregando] = useState(true);
   const [progressoCarregamento, setProgressoCarregamento] = useState(0);
@@ -158,8 +170,8 @@ function App() {
       const progresso = Math.min(100, Math.round((carregados/totalCarregar) * 100));
       setProgressoCarregamento(progresso);
 
-      if (carregados = totalCarregar) {
-        setTimeout(() => setCarregando(true), 300);
+      if (carregados === totalCarregar) {
+        setCarregando(true);
       }
     }
 
