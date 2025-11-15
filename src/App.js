@@ -1,4 +1,4 @@
-import { useState, } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import * as domtoimage from 'dom-to-image-more';
 import { domToPng } from 'modern-screenshot';
@@ -11,9 +11,11 @@ import Favorita from './components/Favorita';
 import Figurinos from './components/Figurinos';
 import Posicoes from './components/Posicoes';
 import Final from './components/Final';
+import { preload } from 'react-dom';
 
 
 function App() {
+  const [carregando, setCarregando] = useState(true);
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     nome: "",
@@ -30,6 +32,106 @@ function App() {
   const [desaparecendo, setDesaparecendo] = useState(false);
   const [fade, setFade] = useState("fade-enter-active");
   const [taPrintando, setTaPrintando] = useState(false);
+
+  useEffect(() => {
+    const imagensCarregar = [
+      "umano/bases/blocais/bbanheiro.png",
+      "umano/bases/blocais/bporta.png",
+      "umano/bases/blocais/bsala.png",
+      "umano/bases/blocais/bquarto.png",
+      "umano/bases/bfundos/btitulo.png",
+      "umano/bases/bfundos/começo.jpeg",
+      "umano/bases/bfundos/começo.png",
+      "umano/bases/bfundos/começo1.png",
+      "umano/bases/bfundos/começo2.png",
+      "umano/bases/bfundos/final.jpeg",
+      "umano/bases/bfundos/jaofinal.png",
+      "umano/bases/bfundos/padrao.png",
+      "umano/bases/bestados/videos/bbh.mp4",
+      "umano/bases/bestados/videos/bbsb.mp4",
+      "umano/bases/bestados/videos/bcuritiba.mp4",
+      "umano/bases/bestados/videos/bmaceio.mp4",
+      "umano/bases/bestados/videos/bpoa.mp4",
+      "umano/bases/bestados/videos/brecife.mp4",
+      "umano/bases/bestados/videos/bribeirao.mp4",
+      "umano/bases/bestados/videos/brio.mp4",
+      "umano/bases/bestados/videos/bsp.mp4",
+      "umano/bases/bestados/videos/bvitoria.mp4",
+      "umano/bases/bmusicas/bacontece.png",
+      "umano/bases/bmusicas/balinhamento.png",
+      "umano/bases/bmusicas/bclarao.png",
+      "umano/bases/bmusicas/bcovers.png",
+      "umano/bases/bmusicas/bdoce.png",
+      "umano/bases/bmusicas/benquanto.png",
+      "umano/bases/bmusicas/bessa.png",
+      "umano/bases/bmusicas/beuquero.png",
+      "umano/bases/bmusicas/bidiota.png",
+      "umano/bases/bmusicas/bjulho.png",
+      "umano/bases/bmusicas/blabia.png",
+      "umano/bases/bmusicas/blambe.png",
+      "umano/bases/bmusicas/blobos.png",
+      "umano/bases/bmusicas/blocadora.png",
+      "umano/bases/bmusicas/bmem.png",
+      "umano/bases/bmusicas/bmodo.png",
+      "umano/bases/bmusicas/bolhos.png",
+      "umano/bases/bmusicas/bradio.png",
+      "umano/bases/bmusicas/breligiao.png",
+      "umano/bases/bmusicas/bsanto.png",
+      "umano/bases/bmusicas/btempos.png",
+      "umano/bases/bmusicas/btriste.png",
+      "umano/bases/bmusicas/bultima.png",
+      "umano/bases/bpijamas/brazul.png",
+      "umano/bases/bpijamas/brosa.png",
+      "umano/bases/bpijamas/bverde.png",
+      "umano/locais/banheiro.png",
+      "umano/locais/porta.png",
+      "umano/locais/sala.png",
+      "umano/locais/quarto.png",
+      "umano/estados/bh.png",
+      "umano/estados/brasilia.png",
+      "umano/estados/curitiba.png",
+      "umano/estados/maceio.png",
+      "umano/estados/poa.png",
+      "umano/estados/recife.png",
+      "umano/estados/rp.png",
+      "umano/estados/rio.png",
+      "umano/estados/sp.png",
+      "umano/estados/vitoria.png",
+      "umano/musicas/acontece.png",
+      "umano/musicas/alinhamento.png",
+      "umano/musicas/clarao.png",
+      "umano/musicas/covers.png",
+      "umano/musicas/doce.png",
+      "umano/musicas/enquanto.png",
+      "umano/musicas/essa.png",
+      "umano/musicas/quero.png",
+      "umano/musicas/idiota.png",
+      "umano/musicas/julho.png",
+      "umano/musicas/labia.png",
+      "umano/musicas/lambe.png",
+      "umano/musicas/lobos.png",
+      "umano/musicas/locadora.png",
+      "umano/musicas/mem.png",
+      "umano/musicas/modo.png",
+      "umano/musicas/vermelhos.png",
+      "umano/musicas/radio.png",
+      "umano/musicas/religiao.png",
+      "umano/musicas/santo.png",
+      "umano/musicas/tempos.png",
+      "umano/musicas/triste.png",
+      "umano/musicas/ultima.png",
+      "umano/pijamas/azul.png",
+      "umano/pijamas/rosa.png",
+      "umano/pijamas/verde.png",
+    ];
+
+    Promise.all(imagensCarregar.map(preloadImage)).then(() => {
+      setCarregando(false);
+    }).catch(error => {
+      console.error("Erro ao carregar imagens:", error);
+      setCarregando(false);
+    });
+  }, []);
 
 
   const handleNext = () => {
@@ -176,6 +278,13 @@ const gerarImagem = async () => {
         setTaPrintando(false); 
     }
 };
+
+if (carregando) {
+  return(
+    <div><p>ta carregando carai</p></div>
+  );
+}
+
   return (
     <div id="captura" className={`tela tela${step}`}>
       <header className="header"><Titulo step={step}/><br></br></header>
