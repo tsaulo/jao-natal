@@ -72,9 +72,8 @@ const gerarImagem = async () => {
         await new Promise(r => setTimeout(r, 500)); 
 
         const elemento = document.getElementById("captura");
-        const polaroidsDiv = elemento.querySelector(".campofim"); 
-        
-        const isMobile = window.innerWidth <= 1024;
+        const polaroidsDiv = elemento.querySelector(".polaroids-container"); 
+        const isMobile = window.innerWidth <= 1024; 
         let link;
         
         const CAPTURE_SCALE = window.devicePixelRatio * 1.5;
@@ -84,10 +83,10 @@ const gerarImagem = async () => {
             fetchExternalStyles: true,
         });
 
-        const img = new Image();
+        const img = new Image(); 
         img.src = pngDataUrl;
         await new Promise(resolve => img.onload = resolve);
-        
+
         const larguraDesejadaStory = 1080;
         const alturaDesejadaStory = 1920;
         
@@ -147,7 +146,7 @@ const gerarImagem = async () => {
 
 
         const backgroundImage = new Image();
-        backgroundImage.src = '/images/background_image.png'; 
+        backgroundImage.src = "umano/bases/bfundos/padrao.png"; 
         
         await new Promise(resolve => backgroundImage.onload = resolve);
 
@@ -163,7 +162,7 @@ const gerarImagem = async () => {
         link.download = "jao-natal.png";
         link.href = canvasFinalStory.toDataURL("image/png");
 
-
+        
         const response = await fetch(link.href);
         const blob = await response.blob();
         const blobUrl = URL.createObjectURL(blob);
@@ -177,7 +176,6 @@ const gerarImagem = async () => {
         setTaPrintando(false); 
     }
 };
-
   return (
     <div id="captura" className={`tela tela${step}`}>
       <header className="header"><Titulo step={step}/><br></br></header>
