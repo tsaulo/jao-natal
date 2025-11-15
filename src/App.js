@@ -72,23 +72,25 @@ const gerarImagem = async () => {
         await new Promise(r => setTimeout(r, 500)); 
 
         const elemento = document.getElementById("captura");
-        const final = document.getElementById("final");
-        const polaroidsDiv = document.querySelector(".campofim");
-        const isMobile = window.innerWidth <= 1024; 
+        const polaroidsDiv = elemento.querySelector(".campofim"); 
+        
+        const isMobile = window.innerWidth <= 1024;
         let link;
         
+        const CAPTURE_SCALE = window.devicePixelRatio * 1.5;
+        
         const pngDataUrl = await domToPng(elemento, {
-            scale: window.devicePixelRatio * 1.5,
+            scale: CAPTURE_SCALE,
             fetchExternalStyles: true,
         });
 
-        const img = new Image(); 
+        const img = new Image();
         img.src = pngDataUrl;
         await new Promise(resolve => img.onload = resolve);
-
+        
         const larguraDesejadaStory = 1080;
         const alturaDesejadaStory = 1920;
-
+        
         let larguraOrigem, alturaOrigem, imgToDraw;
 
         if (isMobile) {
@@ -96,36 +98,48 @@ const gerarImagem = async () => {
             alturaOrigem = img.naturalHeight;
             imgToDraw = img;
         } else {
-          
-            larguraOrigem = polaroidsDiv.getBoundingClientRect().width; 
-            alturaOrigem = window.innerHeight; 
+            const alturaViewport = window.innerHeight;
 
+            const larguraPolaroidsPx = polaroidsDiv 
+                ? polaroidsDiv.getBoundingClientRect().width 
+                : elemento.offsetWidth; 
+
+            larguraOrigem = larguraPolaroidsPx; 
+            alturaOrigem = alturaViewport; 
+            
             const canvasCrop = document.createElement("canvas");
-
-            canvasCrop.width = larguraOrigem;
-
-            canvasCrop.height = alturaOrigem;
+            
+            const cropWidth = larguraPolaroidsPx * CAPTURE_SCALE;
+            const cropHeight = alturaViewport * CAPTURE_SCALE; 
+            
+            canvasCrop.width = cropWidth; 
+            canvasCrop.height = cropHeight;
 
             const ctxCrop = canvasCrop.getContext("2d");
-
+            
+            const rectCaptura = elemento.getBoundingClientRect();
+            const rectPolaroids = polaroidsDiv ? polaroidsDiv.getBoundingClientRect() : rectCaptura;
+            const cropXStart = (rectPolaroids.left - rectCaptura.left) * CAPTURE_SCALE;
+            
             ctxCrop.drawImage(
-              img,
-              0, 0,
-              canvasCrop.width, canvasCrop.height,
-              0, 0,
-              canvasCrop.width, canvasCrop.height
+                img, 
+                cropXStart, 0, 
+                cropWidth, cropHeight, 
+                0, 0, 
+                cropWidth, cropHeight 
             );
 
-            imgToDraw = canvasCrop;
+            imgToDraw = canvasCrop; 
         }
-
+        
         let scaleRatio = Math.min(larguraDesejadaStory / larguraOrigem, alturaDesejadaStory / alturaOrigem);
         let imgWidthScaled = larguraOrigem * scaleRatio;
         let imgHeightScaled = alturaOrigem * scaleRatio;
 
-        let xPos = (larguraDesejadaStory - imgWidthScaled) / 2;
-        let yPos = (alturaDesejadaStory - imgHeightScaled) / 2;
-
+        let xPos = Math.round((larguraDesejadaStory - imgWidthScaled) / 2);
+        let yPos = Math.round((alturaDesejadaStory - imgHeightScaled) / 2);
+        
+        
         const canvasFinalStory = document.createElement("canvas");
         canvasFinalStory.width = larguraDesejadaStory;
         canvasFinalStory.height = alturaDesejadaStory;
@@ -133,8 +147,7 @@ const gerarImagem = async () => {
 
 
         const backgroundImage = new Image();
-
-        backgroundImage.src = "umano/bases/bfundos/padrao.png"; 
+        backgroundImage.src = '/images/background_image.png'; 
         
         await new Promise(resolve => backgroundImage.onload = resolve);
 
@@ -150,7 +163,6 @@ const gerarImagem = async () => {
         link.download = "jao-natal.png";
         link.href = canvasFinalStory.toDataURL("image/png");
 
-        
 
         const response = await fetch(link.href);
         const blob = await response.blob();
