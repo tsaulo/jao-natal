@@ -98,6 +98,24 @@ const gerarImagem = async () => {
           
             larguraOrigem = polaroidsDiv.getBoundingClientRect().width; 
             alturaOrigem = window.innerHeight; 
+
+            const canvasCrop = document.createElement("canvas");
+
+            canvasCrop.width = img.naturalWidth;
+
+            canvasCrop.height = alturaOrigem;
+
+            const ctxCrop = canvasCrop.getContext("2d");
+
+            ctxCrop.drawImage(
+              img,
+              0, 0,
+              canvasCrop.width, canvasCrop.height,
+              0, 0,
+              canvasCrop.width, canvasCrop.height
+            );
+
+            img = canvasCrop;
         }
 
         let scaleRatio = Math.min(larguraDesejadaStory / larguraOrigem, alturaDesejadaStory / alturaOrigem);
