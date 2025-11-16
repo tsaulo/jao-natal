@@ -42,7 +42,7 @@ const Posicoes = ({updateCampo, children}) => {
             <div className="campopos">
             <h2>...e danças marcantes!</h2>
             <p>Acho que todos lembram da primeira vez que a performance de Religião ficou... <i>especial</i> no segundo refrão.</p>
-            <p><strong>Qual estado teve a melhor <i>coreografia</i>?</strong></p>
+            <p><strong>Qual show teve a melhor <i>coreografia</i>?</strong></p>
             <br></br>
             <div style={{textAlign:"center"}}>
                 <div className="videomask" style={{transform: `rotate(${rotacao}deg)`}}>
